@@ -1,25 +1,35 @@
 gulp = require 'gulp'
+gulpCoffee = require 'gulp-coffee'
 gulpPug = require 'gulp-pug'
 gulpChmod = require 'gulp-chmod'
 gulpGhPages = require 'gulp-gh-pages'
 
-## npm run build / npx gulp pug: builds index.html from index.pug etc.
+## npx gulp pug: builds index.html from index.pug etc.
 exports.pug = pug = ->
   gulp.src 'index.pug'
   .pipe gulpPug pretty: true
   .pipe gulpChmod 0o644
   .pipe gulp.dest './'
 
+## npx gulp coffee: builds yinyang.js from yinyang.coffee
+exports.coffee = coffee = ->
+  gulp.src 'yinyang.coffee'
+  .pipe gulpCoffee()
+  .pipe gulpChmod 0o644
+  .pipe gulp.dest './'
+
 ## npm run watch / npx gulp watch: continuously update index.html from deps
 exports.watch = watch = ->
-  gulp.watch '*.pug', pug
+  gulp.watch '*.pug', ignoreInitial: false, pug
   gulp.watch '*.styl', pug
-  gulp.watch '*.coffee', pug
+  gulp.watch '*.coffee', ignored: ['gulpfile.coffee', 'yinyang.coffee'], pug
+  gulp.watch 'yinyang.coffee', ignoreInitial: false, coffee
 
 deploySet = [
   './.nojekyll'
   './index.html'
-  './cayley4.png'
+  './yinyang.js'
+  # Add images etc. in ./ to this list
   './node_modules/reveal.js/dist/reveal.js'
   './node_modules/reveal.js-plugins/chalkboard/plugin.js'
   './node_modules/@svgdotjs/svg.js/dist/svg.min.js'
@@ -59,4 +69,5 @@ exports.deploy = gulp.series pug, deploy = ->
   gulp.src deploySet, base: './'
   .pipe gulpGhPages()
 
-exports.default = pug
+## npm run build / npx gulp: build index.html and yinyang.js
+exports.default = gulp.parallel pug, coffee

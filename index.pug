@@ -8,6 +8,7 @@ html(nighteye="disabled")
     script(src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
     script(src="node_modules/katex/dist/katex.min.js")
     script(src="node_modules/katex/dist/contrib/auto-render.min.js")
+    script(src="yinyang.js")
     link(rel="stylesheet", href="node_modules/reveal.js/dist/reveal.css")
     link(rel="stylesheet", href="node_modules/reveal.js/dist/theme/black.css")
     link(rel="stylesheet", href="node_modules/reveal.js-plugins/chalkboard/style.css")
@@ -22,12 +23,18 @@ html(nighteye="disabled")
     link(rel="stylesheet", href="node_modules/katex/dist/katex.css")
     style
       include:stylus index.styl
+      include:stylus yinyang.styl
   body
     .reveal
       .slides
         include slides.pug
     script
       :coffee-script
+        document.querySelectorAll('.puzzle').forEach (elt) ->
+          puzzle = Puzzle.fromAscii elt.innerText.trim().replace /[ \t]/g, ''
+          elt.innerHTML = ''
+          svg = SVG().addTo elt
+          new Player svg, puzzle
         Reveal.initialize
           center: false
           slideNumber: true
@@ -48,5 +55,3 @@ html(nighteye="disabled")
             {left: "$$", right: "$$", display: true},
             {left: "$", right: "$", display: false},
           ]
-      // Include custom scripts etc. here
-      //- include:coffee-script index.coffee
