@@ -68,8 +68,12 @@ section
   ul
     li (fade graphic, Figure 1)
     li (interactive solve)
-    li Rules
-    li NP-complete
+    li Rules - Fill the board with circles such that:
+    ul
+      li All black circles are orthogonally connected.
+      li All white circles are orthogonally connected.
+      li No $2\times 2$ square is all the same color.
+    li NP-complete to decide if a puzzle is solvable
   table.side-by-side.r-stretch
     tr
       td.puzzle.
@@ -106,44 +110,81 @@ section
 section
   h2 Tree-Residue Vertex Breaking (TRVB)
   ul
-    li What we reduce from
-    li Definition
+    li Reduce from TRVB in 4-regular planar graphs
+    ul
+      li [Demaine, Rudoy `18]
+    li Given a graph, is there a set of vertices which can be "broken" so the resulting graph is a tree?
+  
+
+section
+  h2 Tree-Residue Vertex Breaking (TRVB)
+  img(src="TRVB_definition.svg", style="height:400px; margin: 0; filter: invert(1)")
+  p Breaking a vertex
+
+section
+  h2 Tree-Residue Vertex Breaking (TRVB)
+  img(src="TRVB_instance.svg", style="height:400px; margin: 0; filter: invert(1)")
+  p TRVB instance with a solution
 
 section
   h2 Connected Partitioning / No $2 \times 2$ Proof
-  ul
-    li Vertex gadget
-    li Interactive solve
-
-section
-  h2 Connected Partitioning / No $2 \times 2$ Proof
-  ul
-    li Tilable vertex gadget
-    li Routing gadgets
-    li Fitting-together big figure (NEW)
-  table.side-by-side
+  table.side-by-side.compact
     tr
-      td Vertex Gadget
-      td 
+      td Vertex Gadget 
+      td Broken Vertex 
+    tr
+      td
+        .puzzle.r-stretch.
+        ooooo
+        XX.oo
+        oo.XX
+        XX.oo
+        oo.XX
+        ooooo
+      td
       .puzzle.r-stretch.
         ooooo
-        XX.oo
-        oo.XX
-        XX.oo
-        oo.XX
+        XXooo
+        oooXX
+        XXooo
+        oooXX
         ooooo
+
+section
+  h2 Tiling the gadgets (9x9)
+  table.side-by-side
     tr
-      td Min number of swaps
-      td Number of <b>inversions</b> / cost of <b>bubble sort</b>
+      td 
+      .puzzle.
+        ooooooooo
+        ooooooooo
+        oooooXXXX>
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+      td
+      .puzzle.
+        oooooXooo
+        oooooXooo
+        XXX.oXoXX
+        ooo.XXoXo
+        oXX.oooXo
+        oXo.XXXXo
+        oXooooooo
+        oXXXXXooo
+        oooooXooo
+
+section
+  h2 Connected Partitioning / No $2 \times 2$ Proof
+  ul
+    li Fitting-together big figure (NEW)
 
 section
   h2 Tree Partitioning / $2 \times 2$ Proof
   ul
-    li Vertex gadget
-    li Interactive solve?
-    li Tilable vertex gadget
-    li Mention alternating filler
-    li Fitting-together big figure
     .puzzle.
       XoXoXoXoXoX
       XoooooXoooX
@@ -156,15 +197,32 @@ section
       XoXoXoXoXoX
       XoXoXoXoXoX
       XoXoXoXoXoX
+      p vertex gadget
+
+section
+  h2 Tree Partitioning / $2 \times 2$ Proof
+  ul
+    li Vertex gadget
+    li Interactive solve?
+    li Tilable vertex gadget
+    li Mention alternating filler
+    li Fitting-together big figure
+
 
 section
   h2 Open Problems
   ul
     li ASP or #P-complete?
+    ul
+      li Our reduction is parsimonious, so results for TRVB would suffice
     li What if we give few clues?
     ul
-      li Is it still NP-hard with $O(n)$ clues given?
+      li Is it still NP-hard with $o(n)$ clues given?
       li Is it FPT with respect to the number of initial clues?
     li Hexagonal or triangular grids?
     li Graph/Tree partition in other graphs?
+    ul
+      li Small tree width?
+      li Interval or Chordal graphs?
+      li Dense or expander graphs?
 
