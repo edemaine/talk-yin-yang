@@ -40,8 +40,12 @@ section
   ul
     li (fade graphic, Figure 1)
     li (interactive solve)
-    li Rules
-    li NP-complete
+    li Rules - Fill the board with circles such that:
+    ul
+      li All black circles are orthogonally connected.
+      li All white circles are orthogonally connected.
+      li No $2\times 2$ square is all the same color.
+    li NP-complete to decide if a puzzle is solvable
   .puzzle.r-stretch.
     oX...
     .....
@@ -88,16 +92,10 @@ section
 
 section
   h2 Connected Partitioning / No $2 \times 2$ Proof
-  ul
-    li Vertex gadget
-    li Interactive solve
-
-section
-  h2 Connected Partitioning / No $2 \times 2$ Proof
   table.side-by-side.compact
     tr
-      td Vertex Gadget
-      td Broken Vertex
+      td Vertex Gadget 
+      td Broken Vertex 
     tr
       td
         .puzzle.r-stretch.
@@ -115,7 +113,7 @@ section
         XXooo
         oooXX
         ooooo
-        
+
 section
   h2 Tiling the gadgets (9x9)
   table.side-by-side
@@ -151,11 +149,6 @@ section
 section
   h2 Tree Partitioning / $2 \times 2$ Proof
   ul
-    li Vertex gadget
-    li Interactive solve?
-    li Tilable vertex gadget
-    li Mention alternating filler
-    li Fitting-together big figure
     .puzzle.
       XoXoXoXoXoX
       XoooooXoooX
@@ -168,6 +161,17 @@ section
       XoXoXoXoXoX
       XoXoXoXoXoX
       XoXoXoXoXoX
+      p vertex gadget
+
+section
+  h2 Tree Partitioning / $2 \times 2$ Proof
+  ul
+    li Vertex gadget
+    li Interactive solve?
+    li Tilable vertex gadget
+    li Mention alternating filler
+    li Fitting-together big figure
+
 
 section
   h2 Open Problems
