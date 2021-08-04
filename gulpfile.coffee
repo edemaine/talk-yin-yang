@@ -13,7 +13,7 @@ exports.pug = pug = ->
 
 ## npx gulp coffee: builds yinyang.js from yinyang.coffee
 exports.coffee = coffee = ->
-  gulp.src 'yinyang.coffee'
+  gulp.src '*.coffee', ignore: 'gulpfile.coffee'
   .pipe gulpCoffee()
   .pipe gulpChmod 0o644
   .pipe gulp.dest './'
@@ -22,8 +22,11 @@ exports.coffee = coffee = ->
 exports.watch = watch = ->
   gulp.watch '*.pug', ignoreInitial: false, pug
   gulp.watch '*.styl', pug
-  gulp.watch '*.coffee', ignored: ['gulpfile.coffee', 'yinyang.coffee'], pug
-  gulp.watch 'yinyang.coffee', ignoreInitial: false, coffee
+  #gulp.watch '*.coffee', ignored: ['gulpfile.coffee', 'yinyang.coffee'], pug
+  gulp.watch '*.coffee',
+    ignored: 'gulpfile.coffee'
+    ignoreInitial: false
+  , coffee
 
 deploySet = [
   './.nojekyll'

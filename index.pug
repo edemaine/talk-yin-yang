@@ -8,7 +8,9 @@ html(nighteye="disabled")
     script(src="node_modules/@svgdotjs/svg.js/dist/svg.min.js")
     script(src="node_modules/katex/dist/katex.min.js")
     script(src="node_modules/katex/dist/contrib/auto-render.min.js")
+    script(src="node_modules/svgtiler/lib/svgtiler.js")
     script(src="yinyang.js")
+    script(src="figures.js")
     link(rel="stylesheet", href="node_modules/reveal.js/dist/reveal.css")
     link(rel="stylesheet", href="node_modules/reveal.js/dist/theme/black.css")
     link(rel="stylesheet", href="node_modules/reveal.js-plugins/chalkboard/style.css")
@@ -30,11 +32,6 @@ html(nighteye="disabled")
         include slides.pug
     script
       :coffee-script
-        document.querySelectorAll('.puzzle').forEach (elt) ->
-          puzzle = Puzzle.fromAscii elt.innerText.trim().replace /[ \t]/g, ''
-          elt.innerHTML = ''
-          svg = SVG().addTo elt
-          new Player svg, puzzle
         Reveal.initialize
           center: false
           slideNumber: true

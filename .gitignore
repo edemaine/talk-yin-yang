@@ -1,5 +1,5 @@
 index.html
-yinyang.js
+*.js
 dist
 .publish
 node_modules
