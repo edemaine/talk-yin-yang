@@ -128,25 +128,34 @@ section
 
 section
   h2 Connected Partitioning / No $2 \times 2$ Proof
-  table.side-by-side.compact.r-stretch
+  table.side-by-side.r-stretch
+    tr
+      td.puzzle.
+        ooooo
+        XX.oo
+        oo.XX
+        XX.oo
+        oo.XX
+        ooooo
+      td.puzzle.
+        ooooo
+        XXooo
+        oooXX
+        XXooo
+        oooXX
+        ooooo
+      td.puzzle.
+        ooooo
+        XXXoo
+        ooXXX
+        XXXoo
+        ooXXX
+        ooooo
+        
     tr
       td Vertex Gadget 
-      td Broken Vertex 
-    tr
-      td.puzzle.
-        ooooo
-        XX.oo
-        oo.XX
-        XX.oo
-        oo.XX
-        ooooo
-      td.puzzle.
-        ooooo
-        XXooo
-        oooXX
-        XXooo
-        oooXX
-        ooooo
+      td Broken vertex 
+      td Unbroken vertex 
 
 section
   h2 Tiling the gadgets (9x9)
@@ -172,7 +181,10 @@ section
         oXooooooo
         oXXXXXooo
         oooooXooo
-
+    tr
+      td Edges in tiles
+      td Full vertex tile
+      
 section
   h2 Connected Partitioning / No $2 \times 2$ Proof
   ul
@@ -180,20 +192,64 @@ section
 
 section
   h2 Tree Partitioning / $2 \times 2$ Proof
-  ul
-    .puzzle.
-      XoXoXoXoXoX
-      XoooooXoooX
-      XoX.X.X.XoX
-      XoXoXoXoXoX
-      Xo.......oX
-      X.oXoXoXo.X
-      X.oXoXoXo.X
-      Xo.......oX
-      XoXoXoXoXoX
-      XoXoXoXoXoX
-      XoXoXoXoXoX
-      p vertex gadget
+  .puzzle.r-stretch.
+    XoXoXoXoXoX
+    XoooooXoooX
+    XoX.X.X.XoX
+    XoXoXoXoXoX
+    Xo.......oX
+    X.oXoXoXo.X
+    X.oXoXoXo.X
+    Xo.......oX
+    XoXoXoXoXoX
+    XoXoXoXoXoX
+    XoXoXoXoXoX
+  p vertex gadget
+
+section
+  h2 Tree Partitioning / $2 \times 2$ Proof
+  table.side-by-side.r-stretch
+    tr
+      td.puzzle.r-stretch.
+        XoXoXoXoXoX
+        XoooooXoooX
+        XoX.X.X.XoX
+        XoXoXoXoXoX
+        Xo.......oX
+        X.oXoXoXo.X
+        X.oXoXoXo.X
+        Xo.......oX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+      td.puzzle.r-stretch.
+        XoXoXoXoXoX
+        XoooooXoooX
+        XoX.X.X.XoX
+        XoXoXoXoXoX
+        Xo.......oX
+        X.oXoXoXo.X
+        X.oXoXoXo.X
+        Xo.......oX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+      td.puzzle.r-stretch.
+        XoXoXoXoXoX
+        XoooooXoooX
+        XoX.X.X.XoX
+        XoXoXoXoXoX
+        Xo.......oX
+        X.oXoXoXo.X
+        X.oXoXoXo.X
+        Xo.......oX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+    tr
+      td Vertex Gadget 
+      td Broken vertex 
+      td Unbroken vertex 
 
 section
   h2 Tree Partitioning / $2 \times 2$ Proof
