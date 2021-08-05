@@ -28,6 +28,7 @@ window.addEventListener 'DOMContentLoaded', ->
       O: vertex 'red'
       o: vertex 'red'
       '.': vertex 'gray'
-    elt.innerHTML = ''
+    #elt.innerHTML = ''
     #elt.appendChild (drawing.renderSVGDOM new svgtiler.Mappings [mapping]).documentElement
     elt.innerHTML = drawing.renderSVG new svgtiler.Mappings [mapping]
+    elt.classList.remove 'figure'

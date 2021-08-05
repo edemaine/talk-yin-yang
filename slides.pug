@@ -24,31 +24,39 @@ section
       td Osaka Prefecture U.
 
 section
-  h2 Grid Graph Connected Partitioning
+  h2 Grid Graph Connected Partition
   ul
-    li (draw dual graph, input &rarr; output, Figure 1 but with cyclic solve)
+    li Given a partially 2-colored $m \times n$ grid graph
+    li Complete so that each color class is connected
+    li <u>Theorem:</u> <b>NP-complete</b>
+  table.side-by-side
+    tr
+      th.text-center Input
+      th.text-center Output
+    tr
+      td
+        .figure.
+          oX...
+          .....
+          Xo.XX
+          .....
+          ...XX
+      td
+        .figure.
+          oXXXX
+          ooooX
+          XooXX
+          XXXXX
+          XXXXX
+
+section
+  h2 Grid Graph Tree Partition
+  ul
     li NP-complete
   table.side-by-side.r-stretch
     tr
-      td.figure.
-        oX...
-        .....
-        Xo.XX
-        .....
-        ...XX
-      td.figure.
-        oXXXX
-        ooooX
-        XooXX
-        XXXXX
-        XXXXX
-
-section
-  h2 Grid Graph Tree Partitioning
-  ul
-    li (draw dual graph, input &rarr; output, Figure 1)
-    li NP-complete
-  table.side-by-side.r-stretch
+      th.text-center Input
+      th.text-center Output
     tr
       td.figure.
         oX...
