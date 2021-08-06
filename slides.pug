@@ -29,7 +29,7 @@ section
     li Given a partially 2-colored $m \times n$ grid graph
     li Complete so that each color class is connected
     li <u>Theorem:</u> <b>NP-complete</b>
-  table.side-by-side
+  table.side-by-side.r-stretch
     tr
       th.text-center Input
       th.text-center Output
@@ -48,11 +48,15 @@ section
           XooXX
           XXXXX
           XXXXX
+          
+
 
 section
   h2 Grid Graph Tree Partition
   ul
-    li NP-complete
+    li Given a partially 2-colored $m \times n$ grid graph
+    li Complete so that each color class is a tree
+    li <u>Theorem:</u> <b>NP-complete</b>
   table.side-by-side.r-stretch
     tr
       th.text-center Input
@@ -74,15 +78,16 @@ section
 section
   h2 Yin-Yang Puzzles
   ul
-    li (fade graphic, Figure 1)
-    li (interactive solve)
     li Rules - Fill the board with circles such that:
     ul
       li All black circles are orthogonally connected.
       li All white circles are orthogonally connected.
       li No $2\times 2$ square is all the same color.
-    li NP-complete to decide if a puzzle is solvable
+    li <u>Theorem:</u> <b>NP-complete</b>
   table.side-by-side.r-stretch
+    tr
+      th.text-center Input
+      th.text-center Output
     tr
       td.puzzle.
         oX...
