@@ -7,14 +7,15 @@ window.addEventListener 'DOMContentLoaded', ->
   document.querySelectorAll('.puzzle').forEach (elt) ->
     text = contents elt
     puzzle = Puzzle.fromAscii text.replace /[%0]/g, '.'
+    elt.innerHTML = ''
+    svg = SVG().addTo elt
+    player = new Player svg, puzzle
     if /[%0]/.test text
-      solution = Puzzle.fromAscii (
+      player.user = Puzzle.fromAscii (
         text.replace /%/g, 'X'
         .replace /0/g, 'O'
       )
-    elt.innerHTML = ''
-    svg = SVG().addTo elt
-    player = new Player svg, puzzle, solution
+      player.drawUser()
     player.user.bad2x2s = (-> []) if elt.classList.contains 'no2x2'
     player.drawErrors()
 

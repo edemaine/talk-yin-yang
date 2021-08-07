@@ -546,6 +546,18 @@ class Player extends Viewer
       @svg.addClass 'solved'
     else
       @svg.removeClass 'solved'
+  drawUser: ->
+    ## Force redraw of user solution (e.g. if changed externally)
+    group.clear() for group in [@userGroup, @dashGroup]
+    @userCircles = {}
+    for row, i in @user.cell
+      for cell, j in row
+        continue unless @puzzle.cell[i][j] == EMPTY
+        @userCircles[[i,j]] =
+          for group in [@userGroup, @dashGroup]
+            group.circle circleDiameter
+            .center j + 0.5, i + 0.5
+            .addClass cell2char[cell].toUpperCase()
 
   drawErrors: ->
     @errorGroup.clear()
