@@ -31,11 +31,13 @@ exports.watch = watch = ->
 deploySet = [
   './.nojekyll'
   './index.html'
+  './figures.js'
   './yinyang.js'
   # Add images etc. in ./ to this list
   './TRVB_definition.svg'
   './TRVB_input.svg'
   './TRVB_output.svg'
+  './node_modules/svgtiler/lib/svgtiler.js'
   './node_modules/reveal.js/dist/reveal.js'
   './node_modules/reveal.js-plugins/chalkboard/plugin.js'
   './node_modules/@svgdotjs/svg.js/dist/svg.min.js'
@@ -63,7 +65,7 @@ deploySet = [
 
 ## npm run dist / npx gulp dist: copy just needed files to `dist` directory
 ## (for testing before deploy)
-exports.dist = gulp.series pug, copy = ->
+exports.dist = dist = gulp.series pug, copy = ->
   gulp.src deploySet, base: './'
   .pipe gulp.dest './dist/',
     mode: 0o644
@@ -71,7 +73,7 @@ exports.dist = gulp.series pug, copy = ->
 
 ## npm run deploy / npx gulp deploy: deploy needed files to `gh-pages` branch
 ## (thereby deploying to GitHub Pages)
-exports.deploy = gulp.series pug, deploy = ->
+exports.deploy = deploy = gulp.series dist, deploy = ->
   gulp.src deploySet, base: './'
   .pipe gulpGhPages()
 
