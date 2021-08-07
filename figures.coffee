@@ -8,7 +8,9 @@ window.addEventListener 'DOMContentLoaded', ->
     puzzle = Puzzle.fromAscii contents elt
     elt.innerHTML = ''
     svg = SVG().addTo elt
-    new Player svg, puzzle
+    player = new Player svg, puzzle
+    player.user.bad2x2s = (-> []) if elt.classList.contains 'no2x2'
+    player.drawErrors()
 
   document.querySelectorAll('.figure').forEach (elt) ->
     svgtiler.Drawing.useHref = true
