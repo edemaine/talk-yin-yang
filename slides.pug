@@ -65,14 +65,13 @@ section(data-transition="fade", data-transition-speed="slow")
       XoooX
       XXXXX
 
-section
+section(data-transition="fade", data-transition-speed="slow")
   h2 Yin-Yang Puzzles
   ul
-    li Complete $m \times n$ board with black &amp; white circles
-    ul
+    li Complete $m \times n$ board with black &amp; white circles:
+    ol
       li Each color of circles orthogonally connected
       li No $2\times 2$ square is all the same color
-    li <u>Theorem:</u> <b>NP-complete</b>
   .columns.r-stretch
     .column.fill.puzzle.
       oX...
@@ -89,16 +88,39 @@ section
       XXXXX
 
 section
-  h2 Essentially Equivalent
+  h2 Yin-Yang Results
+  ul
+    li Roughly equivalent to Grid Graph Tree Partition
+    li Without $2 \times 2$ rule, roughly equivalent to <br> Grid Graph Connected Partition
+    li <u>Theorem:</u> Both are <b>NP-complete</b>
+  .columns.r-stretch
+    .column.fill.figure.
+      oX...
+      .....
+      Xo.XX
+      .....
+      ...XX
+    .column.arrow
+    .column.fill.puzzle.
+      oX...
+      .....
+      Xo.XX
+      .....
+      ...XX
+
+section
+  h2 Yin-Yang $\approx$ Tree Partition
+  ol
+    li Connectivity properties are the same. Acyclic?
   table.side-by-side
     tr
-      td No $2 \times 2$ $\Rightarrow$ no internal cycle
-      td <u>Lemma:</u> no alternating $2 \times 2$
-      td Except at the boundary
+      td 2. No $2 \times 2$ $\Rightarrow$ no 4-cycle
+      td 3. <u>Lemma:</u> <br> no alternating $2 \times 2$
+      td 4. $>4$-cycle separates, except at the boundary
     tr
       td.puzzle(style="height:200px").
-        ..
-        ..
+        XX
+        XX
       td.puzzle(style="height:200px").
         oX
         Xo
@@ -106,7 +128,6 @@ section
         ooo
         oXo
         ooo
-        
 
 section
   h2 Yin-Yang Font

@@ -463,6 +463,7 @@ class Player extends Viewer
     @errorGroup = @svg.group()
     .addClass 'error'
     .insertAfter @backgroundRect
+    @drawErrors()
     @userGroup = @svg.group()
     .addClass 'user'
     @dashGroup = @svg.group()
