@@ -24,14 +24,42 @@
 //.reveal .slides section
 //  background: #111
 
+// Left-justify bullets
+ul
+  width: 100%
+
 // Formatting tools specific to this presentation
 cite
   color: #c0a5c0
+.columns
+  width: 100%
+  display: flex
+  align-items: center
+.column
+  text-align: center !important
+  max-height: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  &.fill
+    flex-basis: 0
+    flex-grow: 1
+    align-self: stretch
+  &.space
+    width: 15px
+  &.arrow
+    font-size: 200%
+    &:before
+      content: '🡆'
+  > svg, > .puzzle
+    flex-basis: 0
+    flex-grow: 1
+    align-self: stretch
 table.side-by-side
   table-layout: fixed
   width: 100%
-  td
-    width: 50%
+  //td
+  //  width: 50%
 table.compact
   td, th
     padding: 0 0.5em
@@ -41,6 +69,8 @@ table.authors
 
 .text-center
   text-align: center !important
+.vertical-middle
+  vertical-align: middle !important
 
 .invert
   filter: invert(1) hue-rotate(180deg)
