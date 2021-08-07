@@ -805,61 +805,55 @@ section
 section
   h2 History of Yin-Yang Puzzles
   ul
-    li Published in Japanese puzzle magazine <em>Puzzler </em> as ``白丸黒丸'' (``Shiromaru-Kuromaru'', which means ``white circle / black circle'').
-    li Has been introduced multiple times with different names.
-    li Yin-Yang puzzles seems to be the most popular recent name.
-
-section
-  h2 History
-  ul
-    li Partitioning PTAS etc.??
+    li Published in 1994 in (discontinued) Japanese puzzle magazine <em>Puzzler</em>
+    li Originally &ldquo;白丸黒丸&rdquo; (&ldquo;Shiromaru-Kuromaru&rdquo;) 
+      ul
+        li Meaning: &ldquo;white circle / black circle&rdquo;
+    li Introduced multiple times with different names
+    li &ldquo;Yin-Yang&rdquo; seems to be most popular today
 
 section
   h2 Complexity of Puzzles
   ul
-    li Over 30 NP-hardness proofs for pencil and paper style puzzles
-    li Many relate to problems/constraints in other aspects of computer science
-    ul
-      li Numberlink [Kotsuma, Takenaga '10] - vertex disjoint paths
-      li Spiral Galaxy [Friedman '02] and Tatamibari [ABDDLL'20] - partition into rectangles
-      li Slitherlink [Yato, Seta '03] and The Witness [ABDHHKLR'18] - Hamiltonian Path
-      li Masyu [Friedman '02] - angle restricted tours
+    li $>30$ pencil &amp; paper puzzles proved NP-hard
+    li Many relate to other problems in TCS: <!--computer science:-->
+      ul
+        li Numberlink <cite>[Kotsuma &amp; Takenaga 2010]</cite> &mdash; <br> vertex disjoint paths
+        li Spiral Galaxies <cite>[Friedman 2002]</cite>, Tatamibari <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles
+        li Slitherlink <cite>[Yato &amp; Seta 2003]</cite>, The Witness [ABDHHKLR'18] &mdash; Hamiltonian path
+        li Masyu <cite>[Friedman 2002]</cite> &mdash; angle-restricted tours
 
 section
-  h2 Related Graph Partitioning Work
+  h2 Related Graph Partitioning
   ul
-    li Often looking for partitions which are <i>connected</i>, <i>balanced</i>, and <i>compact</i>.
-    li For grid graphs it is NP-complete to find a balanced partition for:
+    li Often looking for partitions which are <b>connected</b>, <b>balanced</b>, and <b>compact</b>
+    li NP-complete to find balanced partition in grid graphs for:
     ul
-      li 2-colors in weighted graphs, even with only three rows [BLLS'98]
-      li 3-colors in unweighted graphs [BNP'18]
-      li k-colors in solid grid graphs [Fedlmann'13]
-    li Polynomial time algorithms for approximating balanced partitions in planar graphs [HZGX'21].
+      li 2 colors in weighted graphs, even with only three rows <cite>[BLLS 1998]</cite>
+      li 3 colors in unweighted graphs <cite>[BNP 2018]</cite>
+      li $k$ colors in solid grid graphs <cite>[Feldmann 2013]</cite>
+    li Polynomial-time algorithms for approximating balanced partitions in planar graphs <cite>[HZGX 2021]</cite>
 
 section
-  h2 Tree-Residue Vertex Breaking (TRVB)
+  h2 Tree-Residue Vertex Breaking (TRVB) &nbsp;
+    cite [Demaine &amp; Rudoy 2018]
   ul
     li Reduce from TRVB in 4-regular planar graphs
-    ul
-      li [Demaine, Rudoy `18]
-    li Given a graph, is there a set of vertices which can be "broken" so the resulting graph is a tree?
-  
+    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?
+  img(src="TRVB_definition.svg").invert.r-stretch
 
 section
-  h2 Tree-Residue Vertex Breaking (TRVB)
-  img(src="TRVB_definition.svg", style="height:400px; margin: 0; filter: invert(1)")
-  p Breaking a vertex
-
-section
-  h2 Tree-Residue Vertex Breaking (TRVB)
-  .columns
+  h2 Tree-Residue Vertex Breaking (TRVB) &nbsp;
+    cite [Demaine &amp; Rudoy 2018]
+  ul
+    li Reduce from TRVB in 4-regular planar graphs
+    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?
+  .columns.r-stretch
     .column.fill
       img(src="TRVB_input.svg").w-100.invert
-      div Instance
     .column.arrow
     .column.fill
       img(src="TRVB_output.svg").w-100.invert
-      div Solution
 
 section
   h2 Connected Partitioning / No $2 \times 2$ Proof
