@@ -63,9 +63,12 @@ deploySet = [
   './node_modules/@fontsource/merriweather/files/merriweather-latin-900-italic.woff2'
 ]
 
+## npm run build / npx gulp: build index.html and yinyang.js
+exports.build = exports.default = build = gulp.parallel pug, coffee
+
 ## npm run dist / npx gulp dist: copy just needed files to `dist` directory
 ## (for testing before deploy)
-exports.dist = dist = gulp.series pug, copy = ->
+exports.dist = dist = gulp.series build, copy = ->
   gulp.src deploySet, base: './'
   .pipe gulp.dest './dist/',
     mode: 0o644
@@ -76,6 +79,3 @@ exports.dist = dist = gulp.series pug, copy = ->
 exports.deploy = deploy = gulp.series dist, deploy = ->
   gulp.src deploySet, base: './'
   .pipe gulpGhPages()
-
-## npm run build / npx gulp: build index.html and yinyang.js
-exports.default = gulp.parallel pug, coffee
