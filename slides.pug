@@ -1007,7 +1007,7 @@ section
         XoXoXoXoXoXoXoXo
         XoXoXoXoXoXoXoXo
         XoXoXoXoXoXoXoXo
-      div Edges in tiles
+      div Tilable corner gadget
     .column.space
     .column.fill
       .puzzle.
@@ -1027,7 +1027,7 @@ section
         XXXXXXXXXoXoXoXo
         XoXoXoXoXoXoXoXo
         XoXoXoXoXoXoXoXo
-      div Full vertex tile
+      div Tilable vertex gadget
 
 section
   h2 Tree Partitioning Example
@@ -1095,6 +1095,96 @@ section
       XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
       XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
       XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoooXoXoXoXoooooooooooooXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoooooooooooooooooooooooooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+section
+  h2 Tree Partitioning Example
+  .columns.r-stretch
+    .column
+      img(src="TRVB_output.svg", style="width: 360px").w-100.invert
+    .column.arrow
+    .column.fill.puzzle.
+      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooooooXoooooooooooooooooooooXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%X%X%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoooXoXoXoXoooooooooooooooXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoX0X0X0XoXoXoXoXoX%X%X%XoXoXoXoXoX0X0X0XoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXo0000000oXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoX%oXoXoXo%XoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoX0oXoXoXo0XoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXo%%%%%%%oXoXoXoXo0000000oXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoooooooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooooooooooXoXoXo
+      XoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXo
+      XoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%X%X%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+      XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
       XoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoooXoXoXoXoooooooooooooXoXoXoXoXoXoXoXoXoXoXo
       XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
       XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo

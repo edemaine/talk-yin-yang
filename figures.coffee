@@ -5,10 +5,16 @@ contents = (elt) ->
 
 window.addEventListener 'DOMContentLoaded', ->
   document.querySelectorAll('.puzzle').forEach (elt) ->
-    puzzle = Puzzle.fromAscii contents elt
+    text = contents elt
+    puzzle = Puzzle.fromAscii text.replace /[%0]/g, '.'
+    if /[%0]/.test text
+      solution = Puzzle.fromAscii (
+        text.replace /%/g, 'X'
+        .replace /0/g, 'O'
+      )
     elt.innerHTML = ''
     svg = SVG().addTo elt
-    player = new Player svg, puzzle
+    player = new Player svg, puzzle, solution
     player.user.bad2x2s = (-> []) if elt.classList.contains 'no2x2'
     player.drawErrors()
 
