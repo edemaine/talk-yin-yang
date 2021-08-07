@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html nighteye="disabled">
+  <head>
+    <meta charset="utf8">
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script src="node_modules/reveal.js-plugins/chalkboard/plugin.js"></script>
+    <script src="node_modules/@svgdotjs/svg.js/dist/svg.min.js"></script>
+    <script src="node_modules/katex/dist/katex.min.js"></script>
+    <script src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
+    <script src="node_modules/svgtiler/lib/svgtiler.js"></script>
+    <script src="yinyang.js"></script>
+    <script src="figures.js"></script>
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css">
+    <link rel="stylesheet" href="node_modules/reveal.js-plugins/chalkboard/style.css">
+    <link rel="stylesheet" href="node_modules/reveal.js-plugins/menu/font-awesome/css/all.css">
+    <link rel="stylesheet" href="node_modules/@fontsource/merriweather/latin-400.css">
+    <link rel="stylesheet" href="node_modules/@fontsource/merriweather/latin-400-italic.css">
+    <link rel="stylesheet" href="node_modules/@fontsource/merriweather/latin-900.css">
+    <link rel="stylesheet" href="node_modules/@fontsource/merriweather/latin-900-italic.css">
+    <link rel="stylesheet" href="node_modules/katex/dist/katex.css">
+    <style>
+      :root {
+  --r-main-font: Merriweather, serif;
+  --r-heading-font: Merriweather, serif;
+  --r-heading-text-transform: none;
+  --r-background-color: #000;
+  --r-selection-background-color: #444;
+}
+.reveal .slides section .fragment {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+  will-change: initial;
+}
+.reveal .slides section .fragment.visible {
+  opacity: 1;
+  visibility: inherit;
+}
+ul,
+ol {
+  width: calc(100% - 1em);
+  box-sizing: border-box;
+}
+cite {
+  color: #c0a5c0;
+  font-weight: normal;
+}
+h2 cite {
+  font-size: 85%;
+}
+.columns {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.column {
+  text-align: center !important;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.column.fill {
+  flex-basis: 0;
+  flex-grow: 1;
+  align-self: stretch;
+}
+.column.space {
+  width: 15px;
+}
+.column.arrow {
+  font-size: 200%;
+}
+.column.arrow:before {
+  content: '🡆';
+}
+.column > svg,
+.column > .puzzle {
+  flex-basis: 0;
+  flex-grow: 1;
+  align-self: stretch;
+}
+table.side-by-side {
+  table-layout: fixed;
+  width: 100%;
+}
+table.compact td,
+table.compact th {
+  padding: 0 0.5em;
+}
+table.authors td,
+table.authors th {
+  border-bottom: none;
+}
+.font {
+  width: 100%;
+}
+.font > div {
+  display: inline-block;
+  width: 12.5%;
+  margin-top: -15px;
+}
+.text-center {
+  text-align: center !important;
+}
+.vertical-middle {
+  vertical-align: middle !important;
+}
+.d-inline-block {
+  display: inline-block;
+}
+.invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+.url {
+  display: block;
+  font-size: 30%;
+  font-family: monospace;
+}
+.sep {
+  color: #9a5b9a;
+}
+.puzzle,
+.figure {
+  white-space: pre;
+  font-family: monospace;
+}
+      @media print {
+  .noprint {
+    display: none;
+  }
+}
+.w-100 {
+  width: 100%;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.align-middle {
+  vertical-align: middle;
+}
+svg {
+  width: 100%;
+  height: 100%;
+}
+svg rect.background {
+  fill: #ddd;
+  stroke: none;
+}
+svg .grid line {
+  stroke-width: 0.05;
+  stroke: #666;
+  stroke-linecap: square;
+}
+svg .grid rect.border {
+  fill: none;
+  stroke-width: 0.15;
+  stroke: #000;
+}
+svg circle {
+  stroke-width: 0.05;
+}
+svg circle.X {
+  fill: #000;
+  stroke: #fff;
+}
+svg circle.O {
+  fill: #fff;
+  stroke: #000;
+}
+svg .user circle.X,
+svg .solution circle.X {
+  stroke: #000;
+}
+svg .user circle.O,
+svg .solution circle.O {
+  stroke: #fff;
+}
+svg .dash circle {
+  fill: none;
+  stroke-dasharray: 0.1 0.1;
+}
+svg .error {
+  fill: #f00;
+}
+svg .target {
+  fill: #800080;
+  cursor: pointer;
+}
+.font-solved svg .target {
+  cursor: default;
+  opacity: 0;
+}
+svg.solved rect.border {
+  transition: stroke 1s;
+  stroke: #800080;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1 style="font-variant: small-caps">Yin-Yang Puzzles are NP-complete</h1>
+          <hr>
+          <table class="authors">
+            <tr>
+              <td>
+                <h4><u>Erik Demaine</u></h4>
+              </td>
+              <td class="sep">@</td>
+              <td>MIT</td>
+            </tr>
+            <tr>
+              <td>
+                <h4><u>Jayson Lynch</u></h4>
+              </td>
+              <td class="sep">@</td>
+              <td>U. Waterloo</td>
+            </tr>
+            <tr>
+              <td>
+                <h4>Mikhail Rudoy</h4>
+              </td>
+              <td class="sep">@</td>
+              <td>LeapYear Tech.</td>
+            </tr>
+            <tr>
+              <td>
+                <h4>Yushi Uno</h4>
+              </td>
+              <td class="sep">@</td>
+              <td>Osaka Prefecture U.</td>
+            </tr>
+          </table>
+        </section>
+        <section data-transition="fade" data-transition-speed="slow">
+          <h2>Grid Graph Connected Partition</h2>
+          <ul>
+            <li>Given a partially 2-colored $m \times n$ grid graph</li>
+            <li>Complete so that each color class is <b>connected</b></li>
+            <li><u>Theorem:</u> <b>NP-complete</b></li>
+          </ul>
+          <div class="columns r-stretch">
+            <div class="column fill figure">
+              oX...
+              .....
+              Xo.XX
+              .....
+              ...XX
+            </div>
+            <div class="column arrow"></div>
+            <div class="column fill figure">
+              oXXXX
+              ooooX
+              XooXX
+              XXXXX
+              XXXXX
+              
+            </div>
+          </div>
+        </section>
+        <section data-transition="fade" data-transition-speed="slow">
+          <h2>Grid Graph Tree Partition</h2>
+          <ul>
+            <li>Given a partially 2-colored $m \times n$ grid graph</li>
+            <li>Complete so that each color class is <b>a tree</b></li>
+            <li><u>Theorem:</u> <b>NP-complete</b></li>
+          </ul>
+          <div class="columns r-stretch">
+            <div class="column fill figure">
+              oX...
+              .....
+              Xo.XX
+              .....
+              ...XX
+            </div>
+            <div class="column arrow"></div>
+            <div class="column fill figure">
+              oXXXX
+              ooooX
+              XoXXX
+              XoooX
+              XXXXX
+              
+            </div>
+          </div>
+        </section>
+        <section data-transition="fade" data-transition-speed="slow">
+          <h2>Yin-Yang Puzzles</h2>
+          <ul>
+            <li>Complete $m \times n$ board with black &amp; white circles:</li>
+            <ol>
+              <li>Each color of circles orthogonally connected</li>
+              <li>No $2\times 2$ square is all the same color</li>
+            </ol>
+          </ul>
+          <div class="columns r-stretch">
+            <div class="column fill puzzle">
+              oX...
+              .....
+              Xo.XX
+              .....
+              ...XX
+            </div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle">
+              oXXXX
+              ooooX
+              XoXXX
+              XoooX
+              XXXXX
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Yin-Yang Results</h2>
+          <ul>
+            <li>Roughly equivalent to Grid Graph Tree Partition</li>
+            <li>Without $2 \times 2$ rule, roughly equivalent to <br> Grid Graph Connected Partition</li>
+            <li><u>Theorem:</u> Both are <b>NP-complete</b></li>
+          </ul>
+          <div class="columns r-stretch">
+            <div class="column fill figure">
+              oX...
+              .....
+              Xo.XX
+              .....
+              ...XX
+            </div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle">
+              oX...
+              .....
+              Xo.XX
+              .....
+              ...XX
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Yin-Yang $\approx$ Tree Partition</h2>
+          <ol>
+            <li>Connectivity properties are the same. Acyclic?</li>
+          </ol>
+          <table class="side-by-side">
+            <tr>
+              <td>2. No $2 \times 2$ $\Rightarrow$ no 4-cycle</td>
+              <td>3. <u>Lemma:</u> <br> no alternating $2 \times 2$</td>
+              <td>4. $>4$-cycle separates, except at the boundary</td>
+            </tr>
+            <tr>
+              <td class="puzzle" style="height:200px">
+                XX
+                XX
+              </td>
+              <td class="puzzle" style="height:200px">
+                oX
+                Xo
+              </td>
+              <td class="puzzle" style="height:300px">
+                ooo
+                oXo
+                ooo
+                
+              </td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <h2>Yin-Yang Font</h2>
+          <div class="font">
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXoXo
+              oXoXoooXo
+              oXoXXXXXo
+              oXoooooXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXXXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oooXoooXo
+              oXXXoXoXo
+              oooXoXXXo
+              oXXXooooo
+              oooXoXXXo
+              oXXXoXoXo
+              oooXoooXo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXoXo
+              oXoXoXXXo
+              oXoXooooo
+              oXoXoXXXo
+              oXoXXXoXo
+              oXoooooXo
+              oXoXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              ooXooooXo
+              oXXXXXoXo
+              ooXooooXo
+              oXXXXXoXo
+              ooXooooXo
+              oXXXXXoXo
+              oooooooXo
+              oXXXXXXXo
+              ooXoooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXoXooooo
+              oXoXXXXXo
+              oXoXooooo
+              oXoXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXoXooooo
+              oXoXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXoXooooo
+              oXoXoXXXo
+              oXoXoXoXo
+              oXoXXXoXo
+              oooooooXo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoooooXo
+              oXoXXXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXXXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooXoXo
+              oXXXoXoXo
+              oooooXoXo
+              oXXXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoooXoXo
+              oXXXXXoXo
+              oooooooXo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoooXo
+              oXoXXXXXo
+              oXoXooooo
+              oXoXXXXXo
+              oXoXoooXo
+              oXoXoXoXo
+              oXoXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXooo
+              oXoXoXXXo
+              oXoXooooo
+              oXoXXXXXo
+              oXooooooo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXXXoXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoooXo
+              oXoXXoXXo
+              oXooXooXo
+              oXXoXXoXo
+              oXoooXoXo
+              oXoXoXoXo
+              oXXXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoooXoXo
+              oXXXXXoXo
+              oooooooXo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oooXoooXo
+              oXXXoXoXo
+              oooXoXoXo
+              oXXXoXoXo
+              oooXoXoXo
+              oXXXoXXXo
+              oooXooooo
+              oXXXXXXXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoooXo
+              oXoXXXXXo
+              oXoooooXo
+              oXXXXXoXo
+              oooooooXo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oooXoooXo
+              oXXXoXoXo
+              oooXoXXXo
+              oXXXoXooo
+              oooXoXXXo
+              oXXXoXoXo
+              oooXoXoXo
+              oXXXoXoXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXXXXXo
+              oXooooooo
+              oXXXXXXXo
+              oooooooXo
+              oXXXXXoXo
+              oXoooooXo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXoXooo
+              oXXXoXXXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXXXoXo
+              oXooooooo
+              oXXXXXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXXXoXo
+              oXooXooXo
+              oXXoXoXXo
+              ooXoXoXoo
+              oXXoXoXXo
+              ooXoooXoo
+              oXXXoXXXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXoXXXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXXXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoooooXo
+              oXXXXXXXo
+              ooooXoooo
+              oXXXXXXXo
+              oXoooooXo
+              oXoXoXoXo
+              oXXXoXXXo
+              oXooooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXoXXXo
+              oXoXoXoXo
+              oXoXoXoXo
+              oXoXXXoXo
+              oXoooooXo
+              oXXXoXXXo
+              oooXoXooo
+              oXoXoXoXo
+              oXXXoXXXo
+              oooXooooo
+            </div>
+            <div class="puzzle">
+              ooooooooo
+              oXXXXXXXo
+              oXoooooXo
+              oXXXXXoXo
+              oooooooXo
+              oXXXXXXXo
+              oXooooooo
+              oXoXXXXXo
+              oXoooooXo
+              oXXXXXXXo
+              oXooooooo
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Yin-Yang Font</h2>
+          <div class="font">
+            <div class="puzzle">
+              .........
+              .........
+              ...ooo...
+              ..o...o..
+              ..oX.o...
+              ..o......
+              ...o.o...
+              ..o.o.o..
+              ....o....
+              ..XXo.X..
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              .o.X.o...
+              ....o....
+              .o.Xo.X..
+              .....ooo.
+              .oo.o.X..
+              ....o....
+              .oo..o...
+              ..X......
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ...ooo...
+              ..o...o..
+              ..o.o....
+              ..o..ooo.
+              ..o...X..
+              ..o.X..X.
+              .......X.
+              ..o.XXX..
+              oXo......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ..X.oo...
+              ......o..
+              ..X.oo...
+              ......o..
+              .oX.oo...
+              ......o..
+              .ooooo...
+              ...X.....
+              .oX......
+            </div>
+            <div class="puzzle">
+              .........
+              .....XX..
+              ...o...X.
+              ..o..XX..
+              ..o.oooo.
+              ..o......
+              ..oX.ooo.
+              ..o......
+              ...ooo.X.
+              ..o......
+              oX.o.....
+            </div>
+            <div class="puzzle">
+              .........
+              ......X..
+              ...oo..X.
+              ..o.XXX..
+              ..oX.....
+              ..o.XXX..
+              .......X.
+              ..o.X.X..
+              ..oX.X.X.
+              ..o......
+              oX.o.....
+            </div>
+            <div class="puzzle">
+              .........
+              ......X..
+              ...oo..X.
+              ..o...X..
+              ..o..ooo.
+              ..o.o.X..
+              ..o.o....
+              ..o...o..
+              .o.ooo...
+              ..X......
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ..X.o.X..
+              ....oX.X.
+              ..o.o....
+              ...o.o...
+              ..o......
+              ..o.oX.X.
+              ..o.oX.X.
+              ....oX.X.
+              ..XXo.X..
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ..X.X....
+              ...X.X.o.
+              ..X......
+              ...X.X.o.
+              ..X..XX..
+              .o.X.X...
+              ......X..
+              .o.X.X...
+              ..X...X..
+              ...X.....
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ..oo..o..
+              ....o.o..
+              .ooo..o..
+              ..X.o.o..
+              .X.Xo.o..
+              ....o.o..
+              ...o..o..
+              ......o..
+              ......oXo
+            </div>
+            <div class="puzzle">
+              .........
+              ....o.X..
+              ..o.o....
+              ..o..o...
+              ..o......
+              ..oX.ooo.
+              ..o......
+              ..o..o...
+              ..o.o....
+              ..o.o.X..
+              oX.o.....
+            </div>
+            <div class="puzzle">
+              .........
+              ..X...X..
+              .X.Xo....
+              .X.Xo.o..
+              .X.Xo..o.
+              ....o....
+              ..o..ooo.
+              ..o......
+              ...ooooo.
+              ..X..X...
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ..X.o.X..
+              .X.Xo....
+              .X.Xo.o..
+              ....o.o..
+              ..o.o.o..
+              ..o.o.o..
+              ..o...o..
+              ..oX.Xo..
+              ..o.X.o..
+              oX.o.....
+            </div>
+            <div class="puzzle">
+              .........
+              ....o....
+              ..o.o.o..
+              ..o.o....
+              ..oX.o...
+              ...o.....
+              ...o..o..
+              .........
+              ....oX.X.
+              ..XXo.X..
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ...ooo...
+              ..o.X.o..
+              ..o...o..
+              ..o.o.o..
+              ...o..o..
+              ......o..
+              .ooooo...
+              ..X....X.
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              .oo..o...
+              ....o.o..
+              .oo.o.o..
+              ....o....
+              .oo.oX.X.
+              ..X.o.X..
+              ...X.ooo.
+              ..X.X....
+              ...X.....
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ...ooo...
+              ..o.X.o..
+              ..o...o..
+              ..o.o.o..
+              ..o..o...
+              ..o......
+              ...ooo...
+              ......o..
+              .....o.Xo
+            </div>
+            <div class="puzzle">
+              ......o..
+              .........
+              .oo..o...
+              ..X.o.o..
+              ...Xo....
+              ..X.oX.o.
+              .o.Xo.X..
+              ....o....
+              .o.Xo.o..
+              ..X.o.o..
+              ...X.o...
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ...oooo..
+              ..o......
+              ...ooooo.
+              .........
+              .ooooo...
+              ..XX..o..
+              .X...o...
+              ..XX.....
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ....X....
+              ..oX.Xo..
+              ..oX.Xo..
+              .o.X.X.o.
+              .X....X..
+              .o.X.X...
+              ..X...X..
+              ...X.X...
+              ..X...X..
+              ...X.....
+            </div>
+            <div class="puzzle">
+              .........
+              ..X.o.X..
+              ....oX.X.
+              ..o.oX.X.
+              ..o.oX.X.
+              ..o.oX.X.
+              ..o......
+              ..o.X.o..
+              ...ooooo.
+              ..X......
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ..oX.Xo..
+              ..o...o..
+              .........
+              ...o.o...
+              .o.o.o.o.
+              ...o.o...
+              ..X....o.
+              ....o..X.
+              ...Xo....
+            </div>
+            <div class="puzzle">
+              .........
+              ..o.X....
+              ..oX.X.X.
+              ..oX.X.X.
+              ..o..X.X.
+              ..o.oX.X.
+              ..o.oX.X.
+              ..o.oX.X.
+              ....oX.X.
+              ..XXo.X..
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ....o....
+              ..o.o.o..
+              ...o.o...
+              ...X.....
+              .o.oX.oo.
+              ...X.....
+              ...o.o...
+              ..o.o....
+              ..X.o.X..
+              oX.......
+            </div>
+            <div class="puzzle">
+              .........
+              ....o.X..
+              ..o.oX.X.
+              ..o.o....
+              ..o...o..
+              ...o.o...
+              ....o....
+              .o..o..o.
+              ....o.o..
+              .XX.o....
+              ...X.o...
+            </div>
+            <div class="puzzle">
+              .........
+              .........
+              ..oooo...
+              ......o..
+              .ooooo...
+              .........
+              ...ooooo.
+              ..o..XX..
+              ...o...X.
+              ..X..XX..
+              oX.......
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2><a style="font-size: 75%" href="https://erikdemaine.org/fonts/yinyang/">https://erikdemaine.org/fonts/yinyang/</a></h2>
+          <iframe class="r-stretch" src="https://erikdemaine.org/fonts/yinyang/" style="background: white"></iframe>
+        </section>
+        <section>
+          <h2><a style="font-size: 100%" href="https://erikdemaine.org/fonts/yinyang/cccg.html">https://erikdemaine.org/fonts/yinyang/cccg.html</a></h2>
+          <!--"clues":145,"black":72,"white":73,"branch":8282-->
+          <div class="puzzle r-stretch">
+            .................................
+            ....XXX.o.XXXXX.o.......o.XXXXX..
+            .......XoX.....Xo..ooo..oX.....X.
+            ..o.X..XoX..X..Xo.o.X...oX..XXX..
+            ..oX..X.oX.X..X.o.oX..X.o....ooo.
+            ..oX.....X.X......oX......o.o.X..
+            ..oX..X.oX.X..XXo.oX..X.o.o.o....
+            ..o.X.oXoX..X..Xo.o.X.o.o.o...o..
+            .......XoX.....Xo..ooo...o.ooo...
+            o.o.XXX.o..XXXX.o.o.....o.XXXXX.o
+            ...ooooo...ooooo...ooooo.X.......
+            X...............................X
+            
+          </div>
+        </section>
+        <section>
+          <h2><a style="font-size: 100%" href="https://erikdemaine.org/fonts/yinyang/cccg.html">https://erikdemaine.org/fonts/yinyang/cccg.html</a></h2>
+          <!--"clues":145,"black":72,"white":73,"branch":8282-->
+          <div class="puzzle r-stretch">
+            ooooooooooooooooooooooooooooooooo
+            oXXXXXXXoXXXXXXXoXXXXXXXoXXXXXXXo
+            oXoooooXoXoooooXoXoooooXoXoooooXo
+            oXoXXXoXoXoXXXoXoXoXXXoXoXoXXXXXo
+            oXoXoXXXoXoXoXXXoXoXoXXXoXoXooooo
+            oXoXoooooXoXoooooXoXoooooXoXoXXXo
+            oXoXoXXXoXoXoXXXoXoXoXXXoXoXoXoXo
+            oXoXXXoXoXoXXXoXoX.XXXoXoXoXXXoXo
+            oXoooooXoXoooooXoXoooooXoooooooXo
+            oXoXXXXXoXoXXXXXoXoXXXXXoXXXXXXXo
+            oXoooooooXoooooooXoooooooXooooooo
+            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            
+          </div>
+        </section>
+        <section>
+          <h2>History of Yin-Yang Puzzles</h2>
+          <ul>
+            <li>Published in 1994 in (discontinued) Japanese puzzle magazine <em>Puzzler</em></li>
+            <li>Originally &ldquo;白丸黒丸&rdquo; (&ldquo;Shiromaru-Kuromaru&rdquo;) 
+              <ul>
+                <li>Meaning: &ldquo;white circle / black circle&rdquo;</li>
+              </ul>
+            </li>
+            <li>Introduced multiple times with different names</li>
+            <li>&ldquo;Yin-Yang&rdquo; seems to be most popular today</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Complexity of Puzzles</h2>
+          <ul>
+            <li>$>30$ pencil &amp; paper puzzles proved NP-hard</li>
+            <li>Many relate to other problems in TCS: <!--computer science:-->
+              <ul>
+                <li>Numberlink <cite>[Kotsuma &amp; Takenaga 2010]</cite> &mdash; <br> vertex disjoint paths</li>
+                <li>Spiral Galaxies <cite>[Friedman 2002]</cite>, Tatamibari <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles</li>
+                <li>Slitherlink <cite>[Yato &amp; Seta 2003]</cite>, The Witness [ABDHHKLR'18] &mdash; Hamiltonian path</li>
+                <li>Masyu <cite>[Friedman 2002]</cite> &mdash; angle-restricted tours</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Related Graph Partitioning</h2>
+          <ul>
+            <li>Often looking for partitions which are <b>connected</b>, <b>balanced</b>, and <b>compact</b></li>
+            <li>NP-complete to find balanced partition in grid graphs for:</li>
+            <ul>
+              <li>2 colors in weighted graphs, even with only three rows <cite>[BLLS 1998]</cite></li>
+              <li>3 colors in unweighted graphs <cite>[BNP 2018]</cite></li>
+              <li>$k$ colors in solid grid graphs <cite>[Feldmann 2013]</cite></li>
+            </ul>
+            <li>Polynomial-time algorithms for approximating balanced partitions in planar graphs <cite>[HZGX 2021]</cite></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Tree-Residue Vertex Breaking (TRVB) &nbsp;
+            <cite>[Demaine &amp; Rudoy 2018]</cite>
+          </h2>
+          <ul>
+            <li>Reduce from TRVB in 4-regular planar graphs</li>
+            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?</li>
+          </ul><img class="invert r-stretch" src="TRVB_definition.svg">
+        </section>
+        <section>
+          <h2>Tree-Residue Vertex Breaking (TRVB) &nbsp;
+            <cite>[Demaine &amp; Rudoy 2018]</cite>
+          </h2>
+          <ul>
+            <li>Reduce from TRVB in 4-regular planar graphs</li>
+            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?</li>
+          </ul>
+          <div class="columns r-stretch">
+            <div class="column fill"><img class="w-100 invert" src="TRVB_input.svg"></div>
+            <div class="column arrow"></div>
+            <div class="column fill"><img class="w-100 invert" src="TRVB_output.svg"></div>
+          </div>
+        </section>
+        <section>
+          <h2>Connected Partitioning / No $2 \times 2$ Proof</h2>
+          <div class="columns">
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooo
+                XX.oo
+                oo.XX
+                XX.oo
+                oo.XX
+                ooooo
+              </div>
+              <div>TRVB vertex</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooo
+                XXooo
+                oooXX
+                XXooo
+                oooXX
+                ooooo
+              </div>
+              <div><b>Broken</b> vertex</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooo
+                XXXoo
+                ooXXX
+                XXXoo
+                ooXXX
+                ooooo
+              </div>
+              <div><b>Unbroken</b> vertex</div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Tiling the Gadgets ($9 \times 9$)</h2>
+          <div class="columns r-stretch">
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooooooo
+                ooooooooo
+                oooooXXXX>
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+              </div>
+              <div>Tilable corner gadget</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                oooooXooo
+                oooooXooo
+                XXX.oXoXX
+                ooo.XXoXo
+                oXX.oooXo
+                oXo.XXXXo
+                oXooooooo
+                oXXXXXooo
+                oooooXooo
+              </div>
+              <div>Tilable vertex gadget</div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Full Reduction Example</h2>
+          <div class="columns r-stretch">
+            <div class="column"><img class="w-100 invert" src="TRVB_input.svg" style="width: 360px"></div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle no2x2">
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              oooooooooooooooooooooooXXXXXXXXXXXXXXXXXXXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              ooooooooooooooXXXXXXX.oXoXXXXXXXXooooooooXooo
+              ooooooooooooooXoooooo.XXoXooooooXooooooooXooo
+              ooooooooooooooXooooXX.oooXooooooXooooooooXooo
+              ooooooooooooooXooooXo.XXXXooooooXooooooooXooo
+              ooooooooooooooXooooXooooooooooooXooooooooXooo
+              ooooooooooooooXooooXXXXXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              oooooXXXXXXX.oXoXXXXX.oXoXXXXX.oXoXXXXXXXXooo
+              oooooXoooooo.XXoXoooo.XXoXoooo.XXoXoooooooooo
+              oooooXooooXX.oooXooXX.oooXooXX.oooXoooooooooo
+              oooooXooooXo.XXXXooXo.XXXXooXo.XXXXoooooooooo
+              oooooXooooXooooooooXooooooooXoooooooooooooooo
+              oooooXooooXXXXXooooXXXXXooooXXXXXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXXXXXXX.oXoXXXXXXXXoooooooooooo
+              oooooXooooooooooooooo.XXoXooooooooooooooooooo
+              oooooXoooooooooooooXX.oooXooooooooooooooooooo
+              oooooXoooooooooooooXo.XXXXooooooooooooooooooo
+              oooooXoooooooooooooXooooooooooooooooooooooooo
+              oooooXoooooooooooooXXXXXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXXXXXXXXXXXXXXXXXXXooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Full Reduction Example</h2>
+          <div class="columns r-stretch">
+            <div class="column"><img class="w-100 invert" src="TRVB_output.svg" style="width: 360px"></div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle no2x2">
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              oooooooooooooooooooooooXXXXXXXXXXXXXXXXXXXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              oooooooooooooooooooooooXoooooooooooooooooXooo
+              ooooooooooooooXXXXXXX%oXoXXXXXXXXooooooooXooo
+              ooooooooooooooXoooooo%XXoXooooooXooooooooXooo
+              ooooooooooooooXooooXX%oooXooooooXooooooooXooo
+              ooooooooooooooXooooXo%XXXXooooooXooooooooXooo
+              ooooooooooooooXooooXooooooooooooXooooooooXooo
+              ooooooooooooooXooooXXXXXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              ooooooooooooooXooooooooXooooooooXooooooooXooo
+              oooooXXXXXXX0oXoXXXXX%oXoXXXXX0oXoXXXXXXXXooo
+              oooooXoooooo0XXoXoooo%XXoXoooo0XXoXoooooooooo
+              oooooXooooXX0oooXooXX%oooXooXX0oooXoooooooooo
+              oooooXooooXo0XXXXooXo%XXXXooXo0XXXXoooooooooo
+              oooooXooooXooooooooXooooooooXoooooooooooooooo
+              oooooXooooXXXXXooooXXXXXooooXXXXXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXooooooooXooooooooXoooooooooooo
+              oooooXooooooooXXXXXXX%oXoXXXXXXXXoooooooooooo
+              oooooXooooooooooooooo%XXoXooooooooooooooooooo
+              oooooXoooooooooooooXX%oooXooooooooooooooooooo
+              oooooXoooooooooooooXo%XXXXooooooooooooooooooo
+              oooooXoooooooooooooXooooooooooooooooooooooooo
+              oooooXoooooooooooooXXXXXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXoooooooooooooooooXooooooooooooooooooooo
+              oooooXXXXXXXXXXXXXXXXXXXooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              ooooooooooooooooooooooooooooooooooooooooooooo
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Tree Partitioning / $2 \times 2$ Proof</h2>
+          <div class="puzzle r-stretch">
+            XoXoXoXoXoX
+            XoooooXoooX
+            XoX.X.X.XoX
+            XoXoXoXoXoX
+            Xo.......oX
+            X.oXoXoXo.X
+            X.oXoXoXo.X
+            Xo.......oX
+            XoXoXoXoXoX
+            XoXoXoXoXoX
+            XoXoXoXoXoX
+          </div>
+          <div>TRVB vertex gadget</div>
+        </section>
+        <section>
+          <h2>Tree Partitioning / $2 \times 2$ Proof</h2>
+          <div class="columns r-stretch">
+            <!--.column.fill
+            .puzzle.
+              XoXoXoXoXoX
+              XoooooXoooX
+              XoX.X.X.XoX
+              XoXoXoXoXoX
+              Xo.......oX
+              X.oXoXoXo.X
+              X.oXoXoXo.X
+              Xo.......oX
+              XoXoXoXoXoX
+              XoXoXoXoXoX
+              XoXoXoXoXoX
+            div TRVB vertex
+            -->
+            <!--.column.space-->
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoX
+                XoooooXoooX
+                XoX0X0X0XoX
+                XoXoXoXoXoX
+                XoXXXXXXXoX
+                X0oXoXoXo0X
+                XXoXoXoXoXX
+                Xo0000000oX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+              </div>
+              <div><b>Broken</b> vertex</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoX
+                XoooooXoooX
+                XoXXXXXXXoX
+                XoXoXoXoXoX
+                Xo0000000oX
+                XXoXoXoXoXX
+                X0oXoXoXo0X
+                XoXXXXXXXoX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+              </div>
+              <div><b>Unbroken</b> vertex</div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Tiling the Gadgets ($16 \times 16$)</h2>
+          <div class="columns r-stretch">
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXooooooo
+                XoXoXoXoXoXXXXXX
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+              </div>
+              <div>Tilable corner gadget</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoXoXoXo
+                XoooooooooXoXoXo
+                XoXXXXXXXXXoXoXo
+                XoXoXoooooXoooXo
+                XoXoXoX.X.X.XoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXo.......oXo
+                XoXoX.oXoXoXo.Xo
+                XoXoX.oXoXoXo.Xo
+                XoXoXo.......oXo
+                ooXoooXoXoXoXooo
+                XoXXXXXoXoXoXXXX>
+                XoooooooXoXoXoXo
+                XXXXXXXXXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+              </div>
+              <div>Tilable vertex gadget</div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Full Reduction Example</h2>
+          <div class="columns r-stretch">
+            <div class="column"><img class="w-100 invert" src="TRVB_input.svg" style="width: 360px"></div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle">
+              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooooooXoooooooooooooooooooooXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.X.X.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoooXoXoXoXoooooooooooooooXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoX.X.X.XoXoXoXoXoX.X.X.XoXoXoXoXoX.X.X.XoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXo.......oXoXoXoXo.......oXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoX.oXoXoXo.XoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoX.oXoXoXo.XoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXo.......oXoXoXoXo.......oXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoooooooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooooooooooXoXoXo
+              XoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXo
+              XoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.X.X.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX.oXoXoXo.XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo.......oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoooXoXoXoXoooooooooooooXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoooooooooooooooooooooooooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Full Reduction Example</h2>
+          <div class="columns r-stretch">
+            <div class="column"><img class="w-100 invert" src="TRVB_output.svg" style="width: 360px"></div>
+            <div class="column arrow"></div>
+            <div class="column fill puzzle">
+              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooooooXoooooooooooooooooooooXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%X%X%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoooXoXoXoXoooooooooooooooXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoX0X0X0XoXoXoXoXoX%X%X%XoXoXoXoXoX0X0X0XoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXo0000000oXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoX%oXoXoXo%XoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoX0oXoXoXo0XoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXo%%%%%%%oXoXoXoXo0000000oXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoooooooooXoooXoXoXoXoooooXoooXoXoXoXoooooXoooXoXoXoXoooooooooooooXoXoXo
+              XoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXo
+              XoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooXoooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%X%X%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo0000000oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX%oXoXoXo%XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoX0oXoXoXo0XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo%%%%%%%oXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoooXoXoXoXoooooooooooooXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXoXXXXXoXoXoXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoooooooooooooooooooooooooooooooXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              XoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXoXo
+              oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+              
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Open Problems</h2>
+          <ul>
+            <li><b>ASP</b>- or <b>#P</b>-complete?
+              <ul>
+                <li>Our reduction is parsimonious, so results for TRVB would suffice</li>
+              </ul>
+            </li>
+            <!--li What if we give few clues?
+            ul
+              li Still NP-hard with $o(n)$ clues?
+            -->
+            <li><b>FPT</b> with respect to the number of initial clues?
+              <ul>
+                <li>Easy with respect to unfilled squares</li>
+              </ul>
+            </li>
+            <li>Hexagonal or triangular grids?</li>
+            <li>Graph/Tree partition in other graphs?</li>
+            <li>Fun with more colors? (Still NP-hard)</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <script>(function() {
+  Reveal.initialize({
+    center: false,
+    slideNumber: true,
+    hash: true,
+    transition: 'none',
+    width: 1100,
+    height: 768,
+    minScale: 0.1,
+    maxScale: 10,
+    plugins: [RevealChalkboard],
+    chalkboard: {
+      background: ['none', 'node_modules/reveal.js-plugins/chalkboard/img/blackboard.png'],
+      boardmarkerWidth: 7,
+      colorButtons: true,
+      theme: 'whiteboard'
+    }
+  });
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {
+        left: "$$",
+        right: "$$",
+        display: true
+      }, {
+        left: "$",
+        right: "$",
+        display: false
+      }
+    ]
+  });
+
+}).call(this);
+
+    </script>
+  </body>
+</html>
