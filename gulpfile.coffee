@@ -34,6 +34,7 @@ deploySet = [
   './figures.js'
   './yinyang.js'
   # Add images etc. in ./ to this list
+  './puzzler_cover.jpg'
   './TRVB_definition.svg'
   './TRVB_input.svg'
   './TRVB_output.svg'
