@@ -918,9 +918,114 @@ section
       div Tilable vertex gadget
 
 section
-  h2 Connected Partitioning / No $2 \times 2$ Proof
-  ul
-    li Fitting-together big figure (NEW)
+  h2 Full Reduction Example
+  .columns.r-stretch
+    .column
+      img(src="TRVB_input.svg", style="width: 360px").w-100.invert
+    .column.arrow
+    .column.fill.puzzle.no2x2.
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      oooooooooooooooooooooooXXXXXXXXXXXXXXXXXXXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      ooooooooooooooXXXXXXX.oXoXXXXXXXXooooooooXooo
+      ooooooooooooooXoooooo.XXoXooooooXooooooooXooo
+      ooooooooooooooXooooXX.oooXooooooXooooooooXooo
+      ooooooooooooooXooooXo.XXXXooooooXooooooooXooo
+      ooooooooooooooXooooXooooooooooooXooooooooXooo
+      ooooooooooooooXooooXXXXXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      oooooXXXXXXX.oXoXXXXX.oXoXXXXX.oXoXXXXXXXXooo
+      oooooXoooooo.XXoXoooo.XXoXoooo.XXoXoooooooooo
+      oooooXooooXX.oooXooXX.oooXooXX.oooXoooooooooo
+      oooooXooooXo.XXXXooXo.XXXXooXo.XXXXoooooooooo
+      oooooXooooXooooooooXooooooooXoooooooooooooooo
+      oooooXooooXXXXXooooXXXXXooooXXXXXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXXXXXXX.oXoXXXXXXXXoooooooooooo
+      oooooXooooooooooooooo.XXoXooooooooooooooooooo
+      oooooXoooooooooooooXX.oooXooooooooooooooooooo
+      oooooXoooooooooooooXo.XXXXooooooooooooooooooo
+      oooooXoooooooooooooXooooooooooooooooooooooooo
+      oooooXoooooooooooooXXXXXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXXXXXXXXXXXXXXXXXXXooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+
+section
+  h2 Full Reduction Example
+  .columns.r-stretch
+    .column
+      img(src="TRVB_output.svg", style="width: 360px").w-100.invert
+    .column.arrow
+    .column.fill.puzzle.no2x2.
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      oooooooooooooooooooooooXXXXXXXXXXXXXXXXXXXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      oooooooooooooooooooooooXoooooooooooooooooXooo
+      ooooooooooooooXXXXXXX%oXoXXXXXXXXooooooooXooo
+      ooooooooooooooXoooooo%XXoXooooooXooooooooXooo
+      ooooooooooooooXooooXX%oooXooooooXooooooooXooo
+      ooooooooooooooXooooXo%XXXXooooooXooooooooXooo
+      ooooooooooooooXooooXooooooooooooXooooooooXooo
+      ooooooooooooooXooooXXXXXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      ooooooooooooooXooooooooXooooooooXooooooooXooo
+      oooooXXXXXXX0oXoXXXXX%oXoXXXXX0oXoXXXXXXXXooo
+      oooooXoooooo0XXoXoooo%XXoXoooo0XXoXoooooooooo
+      oooooXooooXX0oooXooXX%oooXooXX0oooXoooooooooo
+      oooooXooooXo0XXXXooXo%XXXXooXo0XXXXoooooooooo
+      oooooXooooXooooooooXooooooooXoooooooooooooooo
+      oooooXooooXXXXXooooXXXXXooooXXXXXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXooooooooXooooooooXoooooooooooo
+      oooooXooooooooXXXXXXX%oXoXXXXXXXXoooooooooooo
+      oooooXooooooooooooooo%XXoXooooooooooooooooooo
+      oooooXoooooooooooooXX%oooXooooooooooooooooooo
+      oooooXoooooooooooooXo%XXXXooooooooooooooooooo
+      oooooXoooooooooooooXooooooooooooooooooooooooo
+      oooooXoooooooooooooXXXXXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXoooooooooooooooooXooooooooooooooooooooo
+      oooooXXXXXXXXXXXXXXXXXXXooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
+      ooooooooooooooooooooooooooooooooooooooooooooo
 
 section
   h2 Tree Partitioning / $2 \times 2$ Proof
@@ -1030,7 +1135,7 @@ section
       div Tilable vertex gadget
 
 section
-  h2 Tree Partitioning Example
+  h2 Full Reduction Example
   .columns.r-stretch
     .column
       img(src="TRVB_input.svg", style="width: 360px").w-100.invert
@@ -1120,7 +1225,7 @@ section
       oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 section
-  h2 Tree Partitioning Example
+  h2 Full Reduction Example
   .columns.r-stretch
     .column
       img(src="TRVB_output.svg", style="width: 360px").w-100.invert
