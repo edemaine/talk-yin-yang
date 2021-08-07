@@ -33,6 +33,9 @@ deploySet = [
   './index.html'
   './yinyang.js'
   # Add images etc. in ./ to this list
+  './TRVB_definition.svg'
+  './TRVB_input.svg'
+  './TRVB_output.svg'
   './node_modules/reveal.js/dist/reveal.js'
   './node_modules/reveal.js-plugins/chalkboard/plugin.js'
   './node_modules/@svgdotjs/svg.js/dist/svg.min.js'
