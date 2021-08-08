@@ -39,11 +39,11 @@
         };
       };
       mapping.load({
-        X: vertex('blue'),
-        x: vertex('blue'),
-        O: vertex('red'),
-        o: vertex('red'),
-        '.': vertex('gray')
+        X: vertex('#0377fc'),
+        x: vertex('#0377fc'),
+        O: vertex('#c70000'),
+        o: vertex('#c70000'),
+        '.': vertex('#aaa')
       });
       //elt.innerHTML = ''
       //elt.appendChild (drawing.renderSVGDOM new svgtiler.Mappings [mapping]).documentElement
