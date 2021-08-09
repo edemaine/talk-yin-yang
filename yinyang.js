@@ -887,7 +887,7 @@
 
   Player = class Player extends Viewer {
     constructor(...args) {
-      var event2coord;
+      var event2coord, ignore, l, len, ref;
       super(...args);
       this.user = this.puzzle.clone();
       this.errorGroup = this.svg.group().addClass('error').insertAfter(this.backgroundRect);
@@ -896,8 +896,19 @@
       this.userCircles = {};
       this.highlight = this.svg.rect(1, 1).addClass('target').opacity(0);
       event2coord = (e) => {
-        var pt, ref, ref1;
-        pt = this.svg.point(e.clientX, e.clientY);
+        var ctm, pt, ref, ref1, zoom;
+        //pt = @svg.point e.clientX, e.clientY
+        //pt = new SVG.Point(e.offsetX, e.offsetY).transform(@svg.ctm().inverse())
+        //pt = new SVG.Point(e.clientX, e.clientY).transform(@svg.screenCTM().inverse())
+        //# Accomodate for CSS zoom, which RevealJS uses on Chrome, and related
+        //# bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1238104
+        ctm = this.svg.screenCTM().inverse();
+        zoom = document.querySelector('.slides').style.zoom || 1;
+        if (zoom !== 1) {
+          ctm.a /= zoom;
+          ctm.d /= zoom;
+        }
+        pt = new SVG.Point(e.clientX, e.clientY).transform(ctm);
         pt.x = Math.floor(pt.x);
         pt.y = Math.floor(pt.y);
         if (!((0 <= (ref = pt.x) && ref < this.puzzle.ncol) && (0 <= (ref1 = pt.y) && ref1 < this.puzzle.nrow))) {
@@ -908,7 +919,7 @@
         }
         return pt;
       };
-      this.svg.mousemove((e) => {
+      this.svg.on('pointermove', (e) => {
         var pt;
         pt = event2coord(e);
         if (pt != null) {
@@ -920,11 +931,11 @@
           return this.highlight.opacity(0);
         }
       });
-      this.svg.on('mouseleave', (e) => {
+      this.svg.on('pointerleave', (e) => {
         this.highlight.opacity(0);
         return this.lastColor = void 0;
       });
-      this.svg.mousedown((e) => {
+      this.svg.on('pointerdown', (e) => {
         var pt, ref;
         if ((ref = e.button) === 0 || ref === 1 || ref === 2) {
           e.preventDefault();
@@ -938,18 +949,21 @@
             case 0: // left click
               return void 0; // => cycle through 3 options
             case 1: // middle click
-              return EMPTY;
-            case 2: // right click
               return WHITE;
+            case 2: // right click
+              return EMPTY;
+            case 5: // pen eraser
+              return EMPTY;
           }
         })());
       });
-      this.svg.on('contextmenu', (e) => {
-        return e.preventDefault();
-      });
-      this.svg.on('auxclick', (e) => {
-        return e.preventDefault();
-      });
+      ref = ['click', 'contextmenu', 'auxclick'];
+      for (l = 0, len = ref.length; l < len; l++) {
+        ignore = ref[l];
+        this.svg.on(ignore, function(e) {
+          return e.preventDefault();
+        });
+      }
     }
 
     toggle(...args) {
