@@ -921,6 +921,7 @@
       };
       this.svg.on('pointermove', (e) => {
         var pt;
+        e.preventDefault();
         pt = event2coord(e);
         if (pt != null) {
           this.highlight.move(pt.x, pt.y).opacity(0.333);
@@ -936,10 +937,9 @@
         return this.lastColor = void 0;
       });
       this.svg.on('pointerdown', (e) => {
-        var pt, ref;
-        if ((ref = e.button) === 0 || ref === 1 || ref === 2) {
-          e.preventDefault();
-        }
+        var pt;
+        e.preventDefault();
+        e.target.setPointerCapture(e.pointerId);
         pt = event2coord(e);
         if (pt == null) {
           return;
@@ -957,7 +957,7 @@
           }
         })());
       });
-      ref = ['click', 'contextmenu', 'auxclick'];
+      ref = ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove'];
       for (l = 0, len = ref.length; l < len; l++) {
         ignore = ref[l];
         this.svg.on(ignore, function(e) {
