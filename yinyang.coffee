@@ -468,6 +468,9 @@ class Player extends Viewer
     @dashGroup = @svg.group()
     .addClass 'dash'
     @userCircles = {}
+    @highlight = @svg.rect 1, 1
+    .addClass 'target'
+    .opacity 0
     event2coord = (e) =>
       #pt = @svg.point e.clientX, e.clientY
       #pt = new SVG.Point(e.offsetX, e.offsetY).transform(@svg.ctm().inverse())
@@ -485,36 +488,26 @@ class Player extends Viewer
       return unless 0 <= pt.x < @puzzle.ncol and 0 <= pt.y < @puzzle.nrow
       return unless @puzzle.cell[pt.y][pt.x] == EMPTY
       pt
-    @pointers = {}  # mapping from pointerIds to last color
     @svg.on 'pointermove', (e) =>
       e.preventDefault()
       pt = event2coord e
       if pt?
-        @pointers[e.pointerId].highlight
+        @highlight
         .move pt.x, pt.y
         .opacity 0.333
-        lastColor = @pointers[e.pointerId].lastColor
-        if e.buttons and lastColor?
-          @toggle pt.y, pt.x, lastColor, true
+        if e.buttons and @lastColor?
+          @toggle pt.y, pt.x, @lastColor, true
       else
-        @pointers[e.pointerId].highlight.opacity 0
+        @highlight.opacity 0
     @svg.on 'pointerleave', (e) =>
-      e.preventDefault()
-      @pointers[e.pointerId]?.highlight?.remove()
-      delete @pointers[e.pointerId]
-    @svg.on 'pointerenter', (e) =>
-      @pointers[e.pointerId] =
-        highlight: (
-          @svg.rect 1, 1
-          .addClass 'target'
-          .opacity 0
-        )
+      @highlight.opacity 0
+      @lastColor = undefined
     @svg.on 'pointerdown', (e) =>
       e.preventDefault()
       e.target.setPointerCapture e.pointerId
       pt = event2coord e
       return unless pt?
-      @pointers[e.pointerId].lastColor = @toggle pt.y, pt.x,
+      @toggle pt.y, pt.x,
         switch e.button
           when 0  # left click
             undefined  # => cycle through 3 options
@@ -524,15 +517,11 @@ class Player extends Viewer
             EMPTY
           when 5  # pen eraser
             EMPTY
-    @svg.on 'pointerup', (e) =>
-      e.preventDefault()
-      e.target.setPointerCapture e.pointerId
     for ignore in ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove']
       @svg.on ignore, (e) -> e.preventDefault()
   toggle: (...args) ->
     for copy in @linked ? [@]
-      color = copy.toggleSelf ...args
-    color
+      copy.toggleSelf ...args
   toggleSelf: (i, j, color, force) ->
     if @userCircles[[i,j]]?
       for circle in @userCircles[[i,j]]
@@ -556,20 +545,19 @@ class Player extends Viewer
             WHITE
           when WHITE
             EMPTY
-    color = @user.cell[i][j]
-    if color != EMPTY
+    @lastColor = @user.cell[i][j]
+    if @lastColor != EMPTY
       @userCircles[[i,j]] =
         for group in [@userGroup, @dashGroup]
           group.circle circleDiameter
           .center j + 0.5, i + 0.5
-          .addClass cell2char[color].toUpperCase()
+          .addClass cell2char[@lastColor].toUpperCase()
 
     @drawErrors()
     if solved = @user.solved()
       @svg.addClass 'solved'
     else
       @svg.removeClass 'solved'
-    color
   drawUser: ->
     ## Force redraw of user solution (e.g. if changed externally)
     group.clear() for group in [@userGroup, @dashGroup]
