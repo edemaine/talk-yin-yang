@@ -488,7 +488,7 @@ class Player extends Viewer
       return unless 0 <= pt.x < @puzzle.ncol and 0 <= pt.y < @puzzle.nrow
       return unless @puzzle.cell[pt.y][pt.x] == EMPTY
       pt
-    @svg.mousemove (e) =>
+    @svg.on 'pointermove', (e) =>
       pt = event2coord e
       if pt?
         @highlight
@@ -498,10 +498,10 @@ class Player extends Viewer
           @toggle pt.y, pt.x, @lastColor, true
       else
         @highlight.opacity 0
-    @svg.on 'mouseleave', (e) =>
+    @svg.on 'pointerleave', (e) =>
       @highlight.opacity 0
       @lastColor = undefined
-    @svg.mousedown (e) =>
+    @svg.on 'pointerdown', (e) =>
       e.preventDefault() if e.button in [0, 1, 2]
       pt = event2coord e
       return unless pt?
@@ -510,13 +510,13 @@ class Player extends Viewer
           when 0  # left click
             undefined  # => cycle through 3 options
           when 1  # middle click
-            EMPTY
-          when 2  # right click
             WHITE
-    @svg.on 'contextmenu', (e) =>
-      e.preventDefault()
-    @svg.on 'auxclick', (e) =>
-      e.preventDefault()
+          when 2  # right click
+            EMPTY
+          when 5  # pen eraser
+            EMPTY
+    for ignore in ['click', 'contextmenu', 'auxclick']
+      @svg.on ignore, (e) -> e.preventDefault()
   toggle: (...args) ->
     for copy in @linked ? [@]
       copy.toggleSelf ...args
