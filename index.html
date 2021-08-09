@@ -322,11 +322,11 @@ svg.solved rect.border {
           </div>
         </section>
         <section>
-          <h2>Yin-Yang Results</h2>
+          <h2>Yin-Yang $\approx$ Tree Partition</h2>
           <ul>
             <li>Roughly equivalent to Grid Graph Tree Partition</li>
             <li>Without $2 \times 2$ rule, roughly equivalent to <br> Grid Graph Connected Partition</li>
-            <li><u>Theorem:</u> Both are <b>NP-complete</b></li>
+            <!--li <u>Theorem:</u> Both are <b>NP-complete</b>-->
           </ul>
           <div class="columns r-stretch">
             <div class="column fill figure">
@@ -1148,8 +1148,8 @@ svg.solved rect.border {
             <li>Many relate to other problems in TCS: <!--computer science:-->
               <ul>
                 <li><b>Numberlink</b> <cite>[Kotsuma &amp; Takenaga 2010]</cite> &mdash; <br> vertex disjoint paths</li>
-                <li><b>Spiral Galaxies</b> <cite>[Friedman 2002]</cite>, <b>Tatamibari</b> <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles</li>
-                <li><b>Slitherlink</b> <cite>[Yato &amp; Seta 2003]</cite>, The Witness [ABDHHKLR'18] &mdash; Hamiltonian path</li>
+                <li><b>Spiral Galaxies</b> <cite>[DLS 2015]</cite>, <b>Tatamibari</b> <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles</li>
+                <li><b>Slitherlink</b> <cite>[Yato &amp; Seta 2003]</cite>, <b>The Witness</b> <cite>[ABDHHKLR'18]</cite> &mdash; Hamiltonian path</li>
                 <li><b>Masyu</b> <cite>[Friedman 2002]</cite> &mdash; angle-restricted tours</li>
               </ul>
             </li>
@@ -1173,8 +1173,8 @@ svg.solved rect.border {
             <cite>[Demaine &amp; Rudoy 2018]</cite>
           </h2>
           <ul>
-            <li>Reduce from TRVB in 4-regular planar graphs</li>
-            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?</li>
+            <li>Reduce from TRVB in 4-regular planar multigraphs, which is NP-complete</li>
+            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a <b>tree</b>?</li>
           </ul><img class="invert r-stretch" src="TRVB_definition.svg">
         </section>
         <section>
@@ -1182,8 +1182,8 @@ svg.solved rect.border {
             <cite>[Demaine &amp; Rudoy 2018]</cite>
           </h2>
           <ul>
-            <li>Reduce from TRVB in 4-regular planar graphs</li>
-            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?</li>
+            <li>Reduce from TRVB in 4-regular planar multigraphs, which is NP-complete</li>
+            <li>Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a <b>tree</b>?</li>
           </ul>
           <div class="columns r-stretch">
             <div class="column fill"><img class="w-100 invert" src="TRVB_input.svg"></div>
@@ -1192,7 +1192,7 @@ svg.solved rect.border {
           </div>
         </section>
         <section>
-          <h2>Connected Partitioning / No $2 \times 2$ Proof</h2>
+          <h2>Grid Graph Connected Partition / Yin-Yang without $2 \times 2$ Rule</h2>
           <div class="columns">
             <div class="column fill">
               <div class="puzzle no2x2">
@@ -1209,18 +1209,6 @@ svg.solved rect.border {
             <div class="column fill">
               <div class="puzzle no2x2">
                 ooooo
-                XXooo
-                oooXX
-                XXooo
-                oooXX
-                ooooo
-              </div>
-              <div><b>Broken</b> vertex</div>
-            </div>
-            <div class="column space"></div>
-            <div class="column fill">
-              <div class="puzzle no2x2">
-                ooooo
                 XXXoo
                 ooXXX
                 XXXoo
@@ -1229,26 +1217,23 @@ svg.solved rect.border {
               </div>
               <div><b>Unbroken</b> vertex</div>
             </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooo
+                XXooo
+                oooXX
+                XXooo
+                oooXX
+                ooooo
+              </div>
+              <div><b>Broken</b> vertex</div>
+            </div>
           </div>
         </section>
         <section>
           <h2>Tiling the Gadgets ($9 \times 9$)</h2>
           <div class="columns r-stretch">
-            <div class="column fill">
-              <div class="puzzle no2x2">
-                ooooooooo
-                ooooooooo
-                oooooXXXX>
-                oooooXooo
-                oooooXooo
-                oooooXooo
-                oooooXooo
-                oooooXooo
-                oooooXooo
-              </div>
-              <div>Tilable corner gadget</div>
-            </div>
-            <div class="column space"></div>
             <div class="column fill">
               <div class="puzzle no2x2">
                 oooooXooo
@@ -1262,6 +1247,21 @@ svg.solved rect.border {
                 oooooXooo
               </div>
               <div>Tilable vertex gadget</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle no2x2">
+                ooooooooo
+                ooooooooo
+                oooooXXXX>
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+                oooooXooo
+              </div>
+              <div>Tilable corner gadget</div>
             </div>
           </div>
         </section>
@@ -1380,7 +1380,7 @@ svg.solved rect.border {
           </div>
         </section>
         <section>
-          <h2>Tree Partitioning / $2 \times 2$ Proof</h2>
+          <h2>Grid Graph Tree Partition / <br> Yin-Yang with $2 \times 2$ Rule</h2>
           <div class="puzzle r-stretch">
             XoXoXoXoXoX
             XoooooXoooX
@@ -1397,7 +1397,7 @@ svg.solved rect.border {
           <div>TRVB vertex gadget</div>
         </section>
         <section>
-          <h2>Tree Partitioning / $2 \times 2$ Proof</h2>
+          <h2>Grid Graph Tree Partition / <br> Yin-Yang with $2 \times 2$ Rule</h2>
           <div class="columns r-stretch">
             <!--.column.fill
             .puzzle.
@@ -1419,23 +1419,6 @@ svg.solved rect.border {
               <div class="puzzle">
                 XoXoXoXoXoX
                 XoooooXoooX
-                XoX0X0X0XoX
-                XoXoXoXoXoX
-                XoXXXXXXXoX
-                X0oXoXoXo0X
-                XXoXoXoXoXX
-                Xo0000000oX
-                XoXoXoXoXoX
-                XoXoXoXoXoX
-                XoXoXoXoXoX
-              </div>
-              <div><b>Broken</b> vertex</div>
-            </div>
-            <div class="column space"></div>
-            <div class="column fill">
-              <div class="puzzle">
-                XoXoXoXoXoX
-                XoooooXoooX
                 XoXXXXXXXoX
                 XoXoXoXoXoX
                 Xo0000000oX
@@ -1448,33 +1431,28 @@ svg.solved rect.border {
               </div>
               <div><b>Unbroken</b> vertex</div>
             </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoX
+                XoooooXoooX
+                XoX0X0X0XoX
+                XoXoXoXoXoX
+                XoXXXXXXXoX
+                X0oXoXoXo0X
+                XXoXoXoXoXX
+                Xo0000000oX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+                XoXoXoXoXoX
+              </div>
+              <div><b>Broken</b> vertex</div>
+            </div>
           </div>
         </section>
         <section>
           <h2>Tiling the Gadgets ($16 \times 16$)</h2>
           <div class="columns r-stretch">
-            <div class="column fill">
-              <div class="puzzle">
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXooooooo
-                XoXoXoXoXoXXXXXX
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-                XoXoXoXoXoXoXoXo
-              </div>
-              <div>Tilable corner gadget</div>
-            </div>
-            <div class="column space"></div>
             <div class="column fill">
               <div class="puzzle">
                 XoXoXoXoXoXoXoXo
@@ -1495,6 +1473,28 @@ svg.solved rect.border {
                 XoXoXoXoXoXoXoXo
               </div>
               <div>Tilable vertex gadget</div>
+            </div>
+            <div class="column space"></div>
+            <div class="column fill">
+              <div class="puzzle">
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXooooooo
+                XoXoXoXoXoXXXXXX
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+                XoXoXoXoXoXoXoXo
+              </div>
+              <div>Tilable corner gadget</div>
             </div>
           </div>
         </section>
@@ -1699,8 +1699,8 @@ svg.solved rect.border {
                 <li>Easy with respect to unfilled squares</li>
               </ul>
             </li>
-            <li>Hexagonal or triangular grids?</li>
-            <li>Graph/Tree partition in other graphs?</li>
+            <li>Yin-Yang on hexagonal or triangular grids?</li>
+            <li>Graph/Tree partition in other special graphs?</li>
             <li>Fun with more colors? (Still NP-hard)</li>
           </ul>
         </section>
