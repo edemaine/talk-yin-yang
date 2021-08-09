@@ -88,11 +88,11 @@ section(data-transition="fade", data-transition-speed="slow")
       XXXXX
 
 section
-  h2 Yin-Yang Results
+  h2 Yin-Yang $\approx$ Tree Partition
   ul
     li Roughly equivalent to Grid Graph Tree Partition
     li Without $2 \times 2$ rule, roughly equivalent to <br> Grid Graph Connected Partition
-    li <u>Theorem:</u> Both are <b>NP-complete</b>
+    //li <u>Theorem:</u> Both are <b>NP-complete</b>
   .columns.r-stretch
     .column.fill.figure.
       oX...
@@ -838,8 +838,8 @@ section
     li Many relate to other problems in TCS: <!--computer science:-->
       ul
         li <b>Numberlink</b> <cite>[Kotsuma &amp; Takenaga 2010]</cite> &mdash; <br> vertex disjoint paths
-        li <b>Spiral Galaxies</b> <cite>[Friedman 2002]</cite>, <b>Tatamibari</b> <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles
-        li <b>Slitherlink</b> <cite>[Yato &amp; Seta 2003]</cite>, The Witness [ABDHHKLR'18] &mdash; Hamiltonian path
+        li <b>Spiral Galaxies</b> <cite>[DLS 2015]</cite>, <b>Tatamibari</b> <cite>[ABDDLL 2020]</cite> &mdash; partition into rectangles
+        li <b>Slitherlink</b> <cite>[Yato &amp; Seta 2003]</cite>, <b>The Witness</b> <cite>[ABDHHKLR'18]</cite> &mdash; Hamiltonian path
         li <b>Masyu</b> <cite>[Friedman 2002]</cite> &mdash; angle-restricted tours
 
 section
@@ -857,16 +857,16 @@ section
   h2 Tree-Residue Vertex Breaking (TRVB) &nbsp;
     cite [Demaine &amp; Rudoy 2018]
   ul
-    li Reduce from TRVB in 4-regular planar graphs
-    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?
+    li Reduce from TRVB in 4-regular planar multigraphs, which is NP-complete
+    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a <b>tree</b>?
   img(src="TRVB_definition.svg").invert.r-stretch
 
 section
   h2 Tree-Residue Vertex Breaking (TRVB) &nbsp;
     cite [Demaine &amp; Rudoy 2018]
   ul
-    li Reduce from TRVB in 4-regular planar graphs
-    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a tree?
+    li Reduce from TRVB in 4-regular planar multigraphs, which is NP-complete
+    li Given a graph, is there a set of vertices that can be <b>broken</b> so the resulting graph is a <b>tree</b>?
   .columns.r-stretch
     .column.fill
       img(src="TRVB_input.svg").w-100.invert
@@ -875,7 +875,7 @@ section
       img(src="TRVB_output.svg").w-100.invert
 
 section
-  h2 Connected Partitioning / No $2 \times 2$ Proof
+  h2 Grid Graph Connected Partition / Yin-Yang without $2 \times 2$ Rule
   .columns
     .column.fill
       .puzzle.no2x2.
@@ -890,39 +890,26 @@ section
     .column.fill
       .puzzle.no2x2.
         ooooo
-        XXooo
-        oooXX
-        XXooo
-        oooXX
-        ooooo
-      div <b>Broken</b> vertex
-    .column.space
-    .column.fill
-      .puzzle.no2x2.
-        ooooo
         XXXoo
         ooXXX
         XXXoo
         ooXXX
         ooooo
       div <b>Unbroken</b> vertex
+    .column.space
+    .column.fill
+      .puzzle.no2x2.
+        ooooo
+        XXooo
+        oooXX
+        XXooo
+        oooXX
+        ooooo
+      div <b>Broken</b> vertex
 
 section
   h2 Tiling the Gadgets ($9 \times 9$)
   .columns.r-stretch
-    .column.fill
-      .puzzle.no2x2.
-        ooooooooo
-        ooooooooo
-        oooooXXXX>
-        oooooXooo
-        oooooXooo
-        oooooXooo
-        oooooXooo
-        oooooXooo
-        oooooXooo
-      div Tilable corner gadget
-    .column.space
     .column.fill
       .puzzle.no2x2.
         oooooXooo
@@ -935,6 +922,19 @@ section
         oXXXXXooo
         oooooXooo
       div Tilable vertex gadget
+    .column.space
+    .column.fill
+      .puzzle.no2x2.
+        ooooooooo
+        ooooooooo
+        oooooXXXX>
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+        oooooXooo
+      div Tilable corner gadget
 
 section
   h2 Full Reduction Example
@@ -1047,7 +1047,7 @@ section
       ooooooooooooooooooooooooooooooooooooooooooooo
 
 section
-  h2 Tree Partitioning / $2 \times 2$ Proof
+  h2 Grid Graph Tree Partition / <br> Yin-Yang with $2 \times 2$ Rule
   .puzzle.r-stretch.
     XoXoXoXoXoX
     XoooooXoooX
@@ -1063,7 +1063,7 @@ section
   div TRVB vertex gadget
 
 section
-  h2 Tree Partitioning / $2 \times 2$ Proof
+  h2 Grid Graph Tree Partition / <br> Yin-Yang with $2 \times 2$ Rule
   .columns.r-stretch
     //.column.fill
       .puzzle.
@@ -1084,21 +1084,6 @@ section
       .puzzle.
         XoXoXoXoXoX
         XoooooXoooX
-        XoX0X0X0XoX
-        XoXoXoXoXoX
-        XoXXXXXXXoX
-        X0oXoXoXo0X
-        XXoXoXoXoXX
-        Xo0000000oX
-        XoXoXoXoXoX
-        XoXoXoXoXoX
-        XoXoXoXoXoX
-      div <b>Broken</b> vertex
-    .column.space
-    .column.fill
-      .puzzle.
-        XoXoXoXoXoX
-        XoooooXoooX
         XoXXXXXXXoX
         XoXoXoXoXoX
         Xo0000000oX
@@ -1109,30 +1094,25 @@ section
         XoXoXoXoXoX
         XoXoXoXoXoX
       div <b>Unbroken</b> vertex
+    .column.space
+    .column.fill
+      .puzzle.
+        XoXoXoXoXoX
+        XoooooXoooX
+        XoX0X0X0XoX
+        XoXoXoXoXoX
+        XoXXXXXXXoX
+        X0oXoXoXo0X
+        XXoXoXoXoXX
+        Xo0000000oX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+        XoXoXoXoXoX
+      div <b>Broken</b> vertex
 
 section
   h2 Tiling the Gadgets ($16 \times 16$)
   .columns.r-stretch
-    .column.fill
-      .puzzle.
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXooooooo
-        XoXoXoXoXoXXXXXX
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-        XoXoXoXoXoXoXoXo
-      div Tilable corner gadget
-    .column.space
     .column.fill
       .puzzle.
         XoXoXoXoXoXoXoXo
@@ -1152,6 +1132,26 @@ section
         XoXoXoXoXoXoXoXo
         XoXoXoXoXoXoXoXo
       div Tilable vertex gadget
+    .column.space
+    .column.fill
+      .puzzle.
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXooooooo
+        XoXoXoXoXoXXXXXX
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+        XoXoXoXoXoXoXoXo
+      div Tilable corner gadget
 
 section
   h2 Full Reduction Example
@@ -1345,6 +1345,6 @@ section
     li <b>FPT</b> with respect to the number of initial clues?
       ul
         li Easy with respect to unfilled squares
-    li Hexagonal or triangular grids?
-    li Graph/Tree partition in other graphs?
+    li Yin-Yang on hexagonal or triangular grids?
+    li Graph/Tree partition in other special graphs?
     li Fun with more colors? (Still NP-hard)
