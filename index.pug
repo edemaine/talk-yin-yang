@@ -55,6 +55,11 @@ html(nighteye="disabled")
             boardmarkerWidth: 7
             colorButtons: true
             theme: 'whiteboard'
+            keyBindings:
+              clear: # remap from + keyCode for QWERTY keyboards
+                keyCode: 187
+                key: '='
+                description: 'Clear drawings on slide'
           seminar:
             server: 'https://reveal-seminar.herokuapp.com'
             port: 4433
