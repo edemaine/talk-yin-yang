@@ -894,6 +894,7 @@
       this.userGroup = this.svg.group().addClass('user');
       this.dashGroup = this.svg.group().addClass('dash');
       this.userCircles = {};
+      this.highlight = this.svg.rect(1, 1).addClass('target').opacity(0);
       event2coord = (e) => {
         var ctm, pt, ref, ref1, zoom;
         //pt = @svg.point e.clientX, e.clientY
@@ -918,35 +919,22 @@
         }
         return pt;
       };
-      this.pointers = {}; // mapping from pointerIds to last color
       this.svg.on('pointermove', (e) => {
-        var lastColor, pt;
+        var pt;
         e.preventDefault();
         pt = event2coord(e);
         if (pt != null) {
-          this.pointers[e.pointerId].highlight.move(pt.x, pt.y).opacity(0.333);
-          lastColor = this.pointers[e.pointerId].lastColor;
-          if (e.buttons && (lastColor != null)) {
-            return this.toggle(pt.y, pt.x, lastColor, true);
+          this.highlight.move(pt.x, pt.y).opacity(0.333);
+          if (e.buttons && (this.lastColor != null)) {
+            return this.toggle(pt.y, pt.x, this.lastColor, true);
           }
         } else {
-          return this.pointers[e.pointerId].highlight.opacity(0);
+          return this.highlight.opacity(0);
         }
       });
       this.svg.on('pointerleave', (e) => {
-        var ref, ref1;
-        e.preventDefault();
-        if ((ref = this.pointers[e.pointerId]) != null) {
-          if ((ref1 = ref.highlight) != null) {
-            ref1.remove();
-          }
-        }
-        return delete this.pointers[e.pointerId];
-      });
-      this.svg.on('pointerenter', (e) => {
-        return this.pointers[e.pointerId] = {
-          highlight: this.svg.rect(1, 1).addClass('target').opacity(0)
-        };
+        this.highlight.opacity(0);
+        return this.lastColor = void 0;
       });
       this.svg.on('pointerdown', (e) => {
         var pt;
@@ -956,7 +944,7 @@
         if (pt == null) {
           return;
         }
-        return this.pointers[e.pointerId].lastColor = this.toggle(pt.y, pt.x, (function() {
+        return this.toggle(pt.y, pt.x, (function() {
           switch (e.button) {
             case 0: // left click
               return void 0; // => cycle through 3 options
@@ -969,10 +957,6 @@
           }
         })());
       });
-      this.svg.on('pointerup', (e) => {
-        e.preventDefault();
-        return e.target.setPointerCapture(e.pointerId);
-      });
       ref = ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove'];
       for (l = 0, len = ref.length; l < len; l++) {
         ignore = ref[l];
@@ -983,13 +967,14 @@
     }
 
     toggle(...args) {
-      var color, copy, l, len, ref, ref1;
+      var copy, l, len, ref, ref1, results;
       ref1 = (ref = this.linked) != null ? ref : [this];
+      results = [];
       for (l = 0, len = ref1.length; l < len; l++) {
         copy = ref1[l];
-        color = copy.toggleSelf(...args);
+        results.push(copy.toggleSelf(...args));
       }
-      return color;
+      return results;
     }
 
     toggleSelf(i, j, color, force) {
@@ -1020,26 +1005,25 @@
           }
         }).call(this);
       }
-      color = this.user.cell[i][j];
-      if (color !== EMPTY) {
+      this.lastColor = this.user.cell[i][j];
+      if (this.lastColor !== EMPTY) {
         this.userCircles[[i, j]] = (function() {
           var len1, m, ref1, results;
           ref1 = [this.userGroup, this.dashGroup];
           results = [];
           for (m = 0, len1 = ref1.length; m < len1; m++) {
             group = ref1[m];
-            results.push(group.circle(circleDiameter).center(j + 0.5, i + 0.5).addClass(cell2char[color].toUpperCase()));
+            results.push(group.circle(circleDiameter).center(j + 0.5, i + 0.5).addClass(cell2char[this.lastColor].toUpperCase()));
           }
           return results;
         }).call(this);
       }
       this.drawErrors();
       if (solved = this.user.solved()) {
-        this.svg.addClass('solved');
+        return this.svg.addClass('solved');
       } else {
-        this.svg.removeClass('solved');
+        return this.svg.removeClass('solved');
       }
-      return color;
     }
 
     drawUser() {
