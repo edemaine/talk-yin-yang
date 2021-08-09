@@ -1716,7 +1716,14 @@ svg.solved rect.border {
       background: ['none', 'node_modules/reveal.js-plugins/chalkboard/img/blackboard.png'],
       boardmarkerWidth: 7,
       colorButtons: true,
-      theme: 'whiteboard'
+      theme: 'whiteboard',
+      keyBindings: {
+        clear: {
+          keyCode: 187,
+          key: '=',
+          description: 'Clear drawings on slide'
+        }
+      }
     },
     seminar: {
       server: 'https://reveal-seminar.herokuapp.com',
