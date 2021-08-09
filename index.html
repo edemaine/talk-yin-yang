@@ -4,6 +4,8 @@
     <meta charset="utf8">
     <script src="node_modules/reveal.js/dist/reveal.js"></script>
     <script src="node_modules/reveal.js-plugins/chalkboard/plugin.js"></script>
+    <script src="node_modules/reveal.js-plugins/seminar/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script src="node_modules/@svgdotjs/svg.js/dist/svg.min.js"></script>
     <script src="node_modules/katex/dist/katex.min.js"></script>
     <script src="node_modules/katex/dist/contrib/auto-render.min.js"></script>
@@ -1692,6 +1694,12 @@ svg.solved rect.border {
       </div>
     </div>
     <script>(function() {
+  var ref, room;
+
+  room = (ref = /[?&]room=([^&#]*)/.exec(document.location.href)) != null ? ref[1] : void 0;
+
+  console.log('room', room);
+
   Reveal.initialize({
     center: false,
     slideNumber: true,
@@ -1701,14 +1709,26 @@ svg.solved rect.border {
     height: 768,
     minScale: 0.1,
     maxScale: 10,
-    plugins: [RevealChalkboard],
+    plugins: [room ? RevealSeminar : void 0, RevealChalkboard].filter(function(x) {
+      return x != null;
+    }),
     chalkboard: {
       background: ['none', 'node_modules/reveal.js-plugins/chalkboard/img/blackboard.png'],
       boardmarkerWidth: 7,
       colorButtons: true,
       theme: 'whiteboard'
+    },
+    seminar: {
+      server: 'https://reveal-seminar.herokuapp.com',
+      port: 4433,
+      room: room,
+      hash: '$2a$05$XWxfvofXNr3s7DbkclX5Zu/3qa9gXIx.f86UfxyVHRVzMHZcgKFO6'
     }
   });
+
+  if (room) {
+    RevealSeminar.open_or_join_room('Yin-Yang');
+  }
 
   renderMathInElement(document.body, {
     delimiters: [
