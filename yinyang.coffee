@@ -472,7 +472,17 @@ class Player extends Viewer
     .addClass 'target'
     .opacity 0
     event2coord = (e) =>
-      pt = @svg.point e.clientX, e.clientY
+      #pt = @svg.point e.clientX, e.clientY
+      #pt = new SVG.Point(e.offsetX, e.offsetY).transform(@svg.ctm().inverse())
+      #pt = new SVG.Point(e.clientX, e.clientY).transform(@svg.screenCTM().inverse())
+      ## Accomodate for CSS zoom, which RevealJS uses on Chrome, and related
+      ## bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1238104
+      ctm = @svg.screenCTM().inverse()
+      zoom = document.querySelector('.slides').style.zoom or 1
+      unless zoom == 1
+        ctm.a /= zoom
+        ctm.d /= zoom
+      pt = new SVG.Point(e.clientX, e.clientY).transform ctm
       pt.x = Math.floor pt.x
       pt.y = Math.floor pt.y
       return unless 0 <= pt.x < @puzzle.ncol and 0 <= pt.y < @puzzle.nrow
