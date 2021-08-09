@@ -41,6 +41,7 @@ deploySet = [
   './node_modules/svgtiler/lib/svgtiler.js'
   './node_modules/reveal.js/dist/reveal.js'
   './node_modules/reveal.js-plugins/chalkboard/plugin.js'
+  './node_modules/reveal.js-plugins/seminar/plugin.js'
   './node_modules/@svgdotjs/svg.js/dist/svg.min.js'
   './node_modules/katex/dist/katex.min.js'
   './node_modules/katex/dist/contrib/auto-render.min.js'
