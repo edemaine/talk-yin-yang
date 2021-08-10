@@ -523,10 +523,6 @@ class Player extends Viewer
     for copy in @linked ? [@]
       copy.toggleSelf ...args
   toggleSelf: (i, j, color, force) ->
-    if @userCircles[[i,j]]?
-      for circle in @userCircles[[i,j]]
-        circle.remove()
-      delete @userCircles[[i,j]]
     if color?
       if force or color == EMPTY
         @user.cell[i][j] = color
@@ -546,12 +542,19 @@ class Player extends Viewer
           when WHITE
             EMPTY
     @lastColor = @user.cell[i][j]
-    if @lastColor != EMPTY
-      @userCircles[[i,j]] =
-        for group in [@userGroup, @dashGroup]
-          group.circle circleDiameter
-          .center j + 0.5, i + 0.5
-          .addClass cell2char[@lastColor].toUpperCase()
+    if @lastColor == EMPTY
+      if @userCircles[[i,j]]?
+        circle.remove() for circle in @userCircles[[i,j]]
+        delete @userCircles[[i,j]]
+    else
+      unless @userCircles[[i,j]]?
+        @userCircles[[i,j]] =
+          for group in [@userGroup, @dashGroup]
+            group.circle circleDiameter
+            .center j + 0.5, i + 0.5
+    unless @lastColor == EMPTY
+      for circle in @userCircles[[i,j]]
+        circle.attr 'class', cell2char[@lastColor].toUpperCase()
 
     @drawErrors()
     if solved = @user.solved()
