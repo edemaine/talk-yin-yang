@@ -1,19 +1,22 @@
-<!--Fill in the following with your talk details (if desired).
+# Talk: Yin-Yang Puzzles are NP-complete
 
-# Talk:
+This repository contains slides for a talk given by Erik Demaine and
+Jayson Lynch about our CCCG 2021 paper
+"[Yin-Yang Puzzles are NP-complete](https://erikdemaine.org/papers/YinYang_CCCG2021/)"
+by Erik Demaine, Jayson Lynch, Mikhail Rudoy, and Yushi Uno.
+See the paper for more details about the results.
 
-This repository contains slides for our talk...
+## [View Slides](https://edemaine.github.io/talk-yin-yang/)
 
-## [View Slides](https://...github.io/)
+[![Title slide](title_slide.png)](https://edemaine.github.io/talk-yin-yang/)
 
-[![Title slide](title_slide.jpg)](https://...github.io/)
--->
+[![Yin-Yang puzzle](puzzle.png)](https://edemaine.github.io/talk-yin-yang/)
 
 ## Technology: RevealJS + Pug + [Stylus] + [CoffeeScript] + [KaTeX] + [SVG.js]
 
 This repository uses the
 [reveal-pug-talk template](https://github.com/edemaine/reveal-pug-talk)
-to slides by combining the following technology (all free and open source):
+to make slides by combining the following technology (all free and open source):
 
 * [RevealJS](https://revealjs.com/): a flexible HTML presentation framework,
   extendable by plugins and themes.  Here we use:
@@ -27,9 +30,11 @@ to slides by combining the following technology (all free and open source):
     for CSS (styling of HTML)
   * [CoffeeScript](https://coffeescript.org/): an indentation-based language
     that compiles to JavaScript
-* [KaTeX](https://katex.org): a library for translating LaTeX math into HTML
+* [SVG Tiler](https://github.com/edemaine/svgtiler):
+  a library for converting ASCII art into high-quality SVG graphics
 * [SVG.js](https://svgdotjs.github.io/):
-  a library that makes it easy to add animations to SVG drawings
+  a library that makes it easy to interact with SVG drawings 
+* [KaTeX](https://katex.org): a library for translating LaTeX math into HTML
 * [Gulp](https://gulpjs.com/): a tool that builds the Pug code into HTML
 
 ## Structure
@@ -41,10 +46,19 @@ Here's an overview of the individual files and what they do:
 * [`index.pug`](index.pug): Top-level Pug file that calls all other files.
   Defines the top-level structure of the document, but has no slides.
 * [`slides.pug`](slides.pug): Slides and specific animations are defined here.
-* [`index.styl`](index.styl): Custom RevealJS styling,
-  and any specific styling for the slides.
-
-<!-- Add any .coffee, images, etc. files here, if desired -->
+* [`index.styl`](index.styl): Custom RevealJS styling and CSS layout tools.
+* [`figures.coffee`](figures.coffee): code to convert ASCII art in `slides.pug`
+  into SVG Tiler drawings (via class `figure`, for grid graphs) or
+  interactive Yin-Yang puzzles (via class `puzzle`).
+* [`yinyang.coffee`](yinyang.coffee): SVG.js-based code to make interactive
+  Yin-Yang puzzles, copied from
+  [the Yin-Yang font](https://github.com/edemaine/font-yinyang).
+* [`TRVB_definition.svg`](TRVB_definition.svg):
+  a figure illustrating vertex breaking in the TRVB problem.
+* [`TRVB_input.svg`](TRVB_input.svg): a sample instance of TRVB.
+* [`TRVB_output.svg`](TRVB_output.svg): a sample solution to TRVB.
+* [`puzzle_cover.png`](puzzler_cover.png): the cover of
+  [*Puzzler* issue #150](http://hiroshioka1125.life.coocan.jp/puzzle_book_collection/puzzler/101-150/150_199405/150_199405.html).
 
 ## Build Instructions
 
