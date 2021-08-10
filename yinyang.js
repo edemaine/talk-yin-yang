@@ -947,13 +947,13 @@
         return this.toggle(pt.y, pt.x, (function() {
           switch (e.button) {
             case 0: // left click
-              return void 0; // => cycle through 3 options
+              return 'cycle'; // => cycle through BLACK, WHITE, EMPTY
             case 1: // middle click
-              return WHITE;
+              return 'flip'; // => toggle between BLACK and WHITE, starting with WHITE
             case 2: // right click
-              return EMPTY;
+              return EMPTY; // => clear
             case 5: // pen eraser
-              return EMPTY;
+              return EMPTY; // => clear
           }
         })());
       });
@@ -977,25 +977,37 @@
       return results;
     }
 
-    toggleSelf(i, j, color, force) {
+    toggleSelf(i, j, color = 'cycle', force) {
       var circle, group, l, len, len1, m, ref, ref1, solved;
-      if (color != null) {
-        if (force || color === EMPTY) {
-          this.user.cell[i][j] = color;
-        } else {
+      switch (false) {
+        case color !== 'cycle':
+          this.user.cell[i][j] = (function() {
+            switch (this.user.cell[i][j]) {
+              case EMPTY:
+                return BLACK;
+              case BLACK:
+                return WHITE;
+              case WHITE:
+                return EMPTY;
+            }
+          }).call(this);
+          break;
+        case color !== 'flip':
+          this.user.cell[i][j] = (function() {
+            switch (this.user.cell[i][j]) {
+              case EMPTY:
+              case BLACK:
+                return WHITE;
+              case WHITE:
+                return BLACK;
+            }
+          }).call(this);
+          break;
+        case !(force || color === EMPTY):
+          this.user.cell[i][j] = color; // currently unused
+          break;
+        default:
           this.user.cell[i][j] = this.user.cell[i][j] === color ? EMPTY : color;
-        }
-      } else {
-        this.user.cell[i][j] = (function() {
-          switch (this.user.cell[i][j]) {
-            case EMPTY:
-              return BLACK;
-            case BLACK:
-              return WHITE;
-            case WHITE:
-              return EMPTY;
-          }
-        }).call(this);
       }
       this.lastColor = this.user.cell[i][j];
       if (this.lastColor === EMPTY) {
