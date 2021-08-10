@@ -15,7 +15,7 @@
     "@svgdotjs/svg.js": "^3.0.16",
     "katex": "^0.13.11",
     "reveal.js": "^4.1.3",
-    "reveal.js-plugins": "^4.1.3",
+    "reveal.js-plugins": "rajgoel/reveal.js-plugins#9fda82766c3c1c0c9a4b5d979418afe077d88cb0",
     "svgtiler": "2.0.0"
   },
   "devDependencies": {

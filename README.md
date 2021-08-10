@@ -53,6 +53,8 @@ Here's an overview of the individual files and what they do:
 * [`yinyang.coffee`](yinyang.coffee): SVG.js-based code to make interactive
   Yin-Yang puzzles, copied from
   [the Yin-Yang font](https://github.com/edemaine/font-yinyang).
+* [`yinyang.styl`](yinyang.coffee): Styling for intearctive Yin-Yang puzzles,
+  copied from [the Yin-Yang font](https://github.com/edemaine/font-yinyang).
 * [`TRVB_definition.svg`](TRVB_definition.svg):
   a figure illustrating vertex breaking in the TRVB problem.
 * [`TRVB_input.svg`](TRVB_input.svg): a sample instance of TRVB.
