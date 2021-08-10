@@ -978,15 +978,7 @@
     }
 
     toggleSelf(i, j, color, force) {
-      var circle, group, l, len, ref, solved;
-      if (this.userCircles[[i, j]] != null) {
-        ref = this.userCircles[[i, j]];
-        for (l = 0, len = ref.length; l < len; l++) {
-          circle = ref[l];
-          circle.remove();
-        }
-        delete this.userCircles[[i, j]];
-      }
+      var circle, group, l, len, len1, m, ref, ref1, solved;
       if (color != null) {
         if (force || color === EMPTY) {
           this.user.cell[i][j] = color;
@@ -1006,17 +998,35 @@
         }).call(this);
       }
       this.lastColor = this.user.cell[i][j];
-      if (this.lastColor !== EMPTY) {
-        this.userCircles[[i, j]] = (function() {
-          var len1, m, ref1, results;
-          ref1 = [this.userGroup, this.dashGroup];
-          results = [];
-          for (m = 0, len1 = ref1.length; m < len1; m++) {
-            group = ref1[m];
-            results.push(group.circle(circleDiameter).center(j + 0.5, i + 0.5).addClass(cell2char[this.lastColor].toUpperCase()));
+      if (this.lastColor === EMPTY) {
+        if (this.userCircles[[i, j]] != null) {
+          ref = this.userCircles[[i, j]];
+          for (l = 0, len = ref.length; l < len; l++) {
+            circle = ref[l];
+            circle.remove();
           }
-          return results;
-        }).call(this);
+          delete this.userCircles[[i, j]];
+        }
+      } else {
+        if (this.userCircles[[i, j]] == null) {
+          this.userCircles[[i, j]] = (function() {
+            var len1, m, ref1, results;
+            ref1 = [this.userGroup, this.dashGroup];
+            results = [];
+            for (m = 0, len1 = ref1.length; m < len1; m++) {
+              group = ref1[m];
+              results.push(group.circle(circleDiameter).center(j + 0.5, i + 0.5));
+            }
+            return results;
+          }).call(this);
+        }
+      }
+      if (this.lastColor !== EMPTY) {
+        ref1 = this.userCircles[[i, j]];
+        for (m = 0, len1 = ref1.length; m < len1; m++) {
+          circle = ref1[m];
+          circle.attr('class', cell2char[this.lastColor].toUpperCase());
+        }
       }
       this.drawErrors();
       if (solved = this.user.solved()) {
