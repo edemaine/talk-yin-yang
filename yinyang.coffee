@@ -510,37 +510,44 @@ class Player extends Viewer
       @toggle pt.y, pt.x,
         switch e.button
           when 0  # left click
-            undefined  # => cycle through 3 options
+            'cycle'  # => cycle through BLACK, WHITE, EMPTY
           when 1  # middle click
-            WHITE
+            'flip'  # => toggle between BLACK and WHITE, starting with WHITE
           when 2  # right click
-            EMPTY
+            EMPTY   # => clear
           when 5  # pen eraser
-            EMPTY
+            EMPTY   # => clear
     for ignore in ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove']
       @svg.on ignore, (e) -> e.preventDefault()
   toggle: (...args) ->
     for copy in @linked ? [@]
       copy.toggleSelf ...args
-  toggleSelf: (i, j, color, force) ->
-    if color?
-      if force or color == EMPTY
+  toggleSelf: (i, j, color = 'cycle', force) ->
+    switch
+      when color == 'cycle'
+        @user.cell[i][j] =
+          switch @user.cell[i][j]
+            when EMPTY
+              BLACK
+            when BLACK
+              WHITE
+            when WHITE
+              EMPTY
+      when color == 'flip'
+        @user.cell[i][j] =
+          switch @user.cell[i][j]
+            when EMPTY, BLACK
+              WHITE
+            when WHITE
+              BLACK
+      when force or color == EMPTY
         @user.cell[i][j] = color
-      else
+      else  # currently unused
         @user.cell[i][j] =
           if @user.cell[i][j] == color
             EMPTY
           else
             color
-    else
-      @user.cell[i][j] =
-        switch @user.cell[i][j]
-          when EMPTY
-            BLACK
-          when BLACK
-            WHITE
-          when WHITE
-            EMPTY
     @lastColor = @user.cell[i][j]
     if @lastColor == EMPTY
       if @userCircles[[i,j]]?
