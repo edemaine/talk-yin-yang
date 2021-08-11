@@ -922,6 +922,7 @@
       this.svg.on('pointermove', (e) => {
         var pt;
         e.preventDefault();
+        e.stopPropagation();
         pt = event2coord(e);
         if (pt != null) {
           this.highlight.move(pt.x, pt.y).opacity(0.333);
@@ -933,12 +934,14 @@
         }
       });
       this.svg.on('pointerleave', (e) => {
+        e.stopPropagation();
         this.highlight.opacity(0);
         return this.lastColor = void 0;
       });
       this.svg.on('pointerdown', (e) => {
         var pt;
         e.preventDefault();
+        e.stopPropagation();
         e.target.setPointerCapture(e.pointerId);
         pt = event2coord(e);
         if (pt == null) {
@@ -961,7 +964,8 @@
       for (l = 0, len = ref.length; l < len; l++) {
         ignore = ref[l];
         this.svg.on(ignore, function(e) {
-          return e.preventDefault();
+          e.preventDefault();
+          return e.stopPropagation();
         });
       }
     }
