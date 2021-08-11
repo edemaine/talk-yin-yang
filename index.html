@@ -62,13 +62,6 @@ h2 cite {
   display: flex;
   flex-direction: column;
   align-items: center;
-/* Failed attempt to fix manual height styling:
-  > .puzzle
-    display: flex
-    flex-direction: column
-    > svg
-      flex: 1
-  */
 }
 .column.fill {
   flex-basis: 0;
@@ -89,6 +82,9 @@ h2 cite {
   flex-basis: 0;
   flex-grow: 1;
   align-self: stretch;
+}
+.column > .puzzle {
+  min-height: 0;
 }
 table.side-by-side {
   table-layout: fixed;
@@ -155,6 +151,8 @@ table.authors th {
 svg {
   width: 100%;
   height: 100%;
+  touch-action: none;
+  user-select: none;
 }
 svg rect.background {
   fill: #ddd;
@@ -1424,7 +1422,7 @@ svg.solved rect.border {
             -->
             <!--.column.space-->
             <div class="column fill">
-              <div class="puzzle" style="height:calc(100% - 50px)">
+              <div class="puzzle">
                 XoXoXoXoXoX
                 XoooooXoooX
                 XoX%X%X%XoX
@@ -1441,7 +1439,7 @@ svg.solved rect.border {
             </div>
             <div class="column space"></div>
             <div class="column fill">
-              <div class="puzzle" style="height:calc(100% - 50px)">
+              <div class="puzzle">
                 XoXoXoXoXoX
                 XoooooXoooX
                 XoX0X0X0XoX
