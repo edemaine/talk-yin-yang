@@ -490,6 +490,7 @@ class Player extends Viewer
       pt
     @svg.on 'pointermove', (e) =>
       e.preventDefault()
+      e.stopPropagation()
       pt = event2coord e
       if pt?
         @highlight
@@ -500,10 +501,12 @@ class Player extends Viewer
       else
         @highlight.opacity 0
     @svg.on 'pointerleave', (e) =>
+      e.stopPropagation()
       @highlight.opacity 0
       @lastColor = undefined
     @svg.on 'pointerdown', (e) =>
       e.preventDefault()
+      e.stopPropagation()
       e.target.setPointerCapture e.pointerId
       pt = event2coord e
       return unless pt?
@@ -518,7 +521,7 @@ class Player extends Viewer
           when 5  # pen eraser
             EMPTY   # => clear
     for ignore in ['click', 'contextmenu', 'auxclick', 'dragstart', 'touchmove']
-      @svg.on ignore, (e) -> e.preventDefault()
+      @svg.on ignore, (e) -> e.preventDefault(); e.stopPropagation()
   toggle: (...args) ->
     for copy in @linked ? [@]
       copy.toggleSelf ...args
