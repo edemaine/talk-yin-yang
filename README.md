@@ -4,7 +4,12 @@ This repository contains slides for a talk given by Erik Demaine and
 Jayson Lynch about our CCCG 2021 paper
 "[Yin-Yang Puzzles are NP-complete](https://erikdemaine.org/papers/YinYang_CCCG2021/)"
 by Erik Demaine, Jayson Lynch, Mikhail Rudoy, and Yushi Uno.
-See the paper for more details about the results.
+
+You can [watch the video](https://youtu.be/TOErsTzTeuk) or
+[read the paper](https://erikdemaine.org/papers/YinYang_CCCG2021/)
+for more details about the results.
+
+## [Watch Video](https://youtu.be/TOErsTzTeuk)
 
 ## [View Slides](https://edemaine.github.io/talk-yin-yang/)
 
