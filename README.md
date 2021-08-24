@@ -53,7 +53,7 @@ Here's an overview of the individual files and what they do:
 * [`slides.pug`](slides.pug): Slides and specific animations are defined here.
 * [`index.styl`](index.styl): Custom reveal.js styling and CSS layout tools.
 * [`figures.coffee`](figures.coffee): code to convert ASCII art in `slides.pug`
-  into SVG Tiler drawings (via class `figure`, for grid graphs) or
+  into SVG Tiler drawings (via class `graph`, for grid graphs) or
   interactive Yin-Yang puzzles (via class `puzzle`).
 * [`yinyang.coffee`](yinyang.coffee): SVG.js-based code to make interactive
   Yin-Yang puzzles, copied from
