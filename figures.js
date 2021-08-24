@@ -6,6 +6,7 @@
   };
 
   window.addEventListener('DOMContentLoaded', function() {
+    var mapping, vertex;
     document.querySelectorAll('.puzzle').forEach(function(elt) {
       var player, puzzle, svg, text;
       text = contents(elt);
@@ -24,31 +25,25 @@
       }
       return player.drawErrors();
     });
-    return document.querySelectorAll('.figure').forEach(function(elt) {
-      var drawing, mapping, vertex;
-      svgtiler.Drawing.useHref = true;
-      drawing = svgtiler.ASCIIDrawing.parseFile('figure.txt', contents(elt));
-      mapping = new svgtiler.Mapping();
-      vertex = function(color) {
-        return function() {
-          return `<symbol viewBox="-0.5 -0.5 1 1">
+    vertex = function(color) {
+      return function() {
+        return `<symbol viewBox="-0.5 -0.5 1 1">
   ${this.neighbor(1, 0).key != null ? '<line x2="1" stroke="white" stroke-width="0.15"/>' : ''}
   ${this.neighbor(0, 1).key != null ? '<line y2="1" stroke="white" stroke-width="0.15"/>' : ''}
   <circle r="0.3" fill="${color}" stroke="white" style="stroke-width: 0.1 !important"/>
 </symbol>`;
-        };
       };
-      mapping.load({
-        X: vertex('#0377fc'),
-        x: vertex('#0377fc'),
-        O: vertex('#c70000'),
-        o: vertex('#c70000'),
-        '.': vertex('#aaa')
-      });
-      //elt.innerHTML = ''
-      //elt.appendChild (drawing.renderSVGDOM new svgtiler.Mappings [mapping]).documentElement
-      elt.innerHTML = drawing.renderSVG(new svgtiler.Mappings([mapping]));
-      return elt.classList.remove('figure');
+    };
+    mapping = new svgtiler.Mapping({
+      X: vertex('#0377fc'),
+      x: vertex('#0377fc'),
+      O: vertex('#c70000'),
+      o: vertex('#c70000'),
+      '.': vertex('#aaa')
+    });
+    return svgtiler.renderDOM(mapping, '.graph', {
+      filename: 'graph.asc',
+      keepParent: true
     });
   });
 
